@@ -1,0 +1,5 @@
+.idea
+.gradle
+build
+out
+gocd-plugin-base.iml
