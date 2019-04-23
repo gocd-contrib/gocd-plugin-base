@@ -16,31 +16,20 @@
 
 package com.github.bdpiparva.plugin.base.dispatcher;
 
-import com.github.bdpiparva.plugin.base.DispatcherBuilder;
 import com.github.bdpiparva.plugin.base.executors.Executor;
-import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class RequestDispatcherBuilder<T extends RequestDispatcherBuilder> implements DispatcherBuilder {
-    protected final Map<String, Executor> dispatcherRegistry = new HashMap<>();
-    private final GoApplicationAccessor accessor;
+public abstract class VersionedExtensionBuilder<T extends VersionedExtensionBuilder> {
+    protected final Map<String, Executor> registry = new HashMap<>();
 
-    public RequestDispatcherBuilder(GoApplicationAccessor accessor) {
-        this.accessor = accessor;
-    }
-
-    public static SecretPluginRequestDispatcherBuilder forSecret(GoApplicationAccessor accessor) {
-        return new SecretPluginRequestDispatcherBuilder(accessor);
+    public RequestDispatcher build() {
+        return new RequestDispatcher(registry, null);
     }
 
     protected T register(String requestName, Executor executor) {
-        dispatcherRegistry.put(requestName, executor);
+        registry.put(requestName, executor);
         return (T) this;
-    }
-
-    public RequestDispatcher build() {
-        return new RequestDispatcher(dispatcherRegistry, accessor);
     }
 }

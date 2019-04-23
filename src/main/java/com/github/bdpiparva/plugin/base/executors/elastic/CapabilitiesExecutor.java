@@ -14,25 +14,24 @@
  * limitations under the License.
  */
 
-package com.github.bdpiparva.plugin.base.executors;
+package com.github.bdpiparva.plugin.base.executors.elastic;
 
 import com.github.bdpiparva.plugin.base.GsonTransformer;
-import com.github.bdpiparva.plugin.base.metadata.MetadataExtractor;
+import com.github.bdpiparva.plugin.base.executors.Executor;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
-public class MetadataExecutor implements Executor {
-    private final Class<?> metadataClass;
-    private final MetadataExtractor metadataExtractor;
+public class CapabilitiesExecutor implements Executor {
 
-    public MetadataExecutor(Class<?> metadataClass) {
-        this.metadataClass = metadataClass;
-        metadataExtractor = new MetadataExtractor();
+    private final Capabilities capabilities;
+
+    public CapabilitiesExecutor(boolean supportsPluginStatusReport, boolean supportsClusterStatusReport, boolean supportsAgentStatusReport) {
+        capabilities = new Capabilities(supportsPluginStatusReport, supportsClusterStatusReport, supportsAgentStatusReport);
     }
 
     @Override
     public GoPluginApiResponse execute(GoPluginApiRequest request) {
-        return DefaultGoPluginApiResponse.success(GsonTransformer.toJson(metadataExtractor.forClass(metadataClass)));
+        return DefaultGoPluginApiResponse.success(GsonTransformer.toJson(capabilities));
     }
 }

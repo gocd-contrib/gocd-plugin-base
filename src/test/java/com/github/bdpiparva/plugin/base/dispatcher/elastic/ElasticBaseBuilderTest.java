@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package com.github.bdpiparva.plugin.base.dispatcher;
+package com.github.bdpiparva.plugin.base.dispatcher.elastic;
 
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RequestDispatcherBuilderTest {
+class ElasticBaseBuilderTest {
     @Test
-    void shouldReturnBuilderForSecretsPlugin() {
-        assertThat(RequestDispatcherBuilder.forSecret(null))
-                .isInstanceOf(SecretPluginRequestDispatcherBuilder.class);
+    void shouldReturnVersion5Builder() {
+        assertThat(new ElasticBaseBuilder().v5())
+                .isNotNull()
+                .isInstanceOf(ElasticBuilderV5.class);
     }
 }

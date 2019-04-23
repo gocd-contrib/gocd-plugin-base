@@ -29,7 +29,7 @@ class MetadataExecutorTest {
 
     @Test
     void shouldReturnMetadataFromClass() throws JSONException {
-        final GoPluginApiResponse response = new MetadataExecutor("", FileConfig.class).execute(null);
+        final GoPluginApiResponse response = new MetadataExecutor(FileConfig.class).execute(null);
 
         assertThat(response.responseCode()).isEqualTo(200);
         final String expected = "[\n" +

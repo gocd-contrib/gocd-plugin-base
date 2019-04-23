@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-package com.github.bdpiparva.plugin.base.executors;
+package com.github.bdpiparva.plugin.base.executors.elastic;
 
-import com.github.bdpiparva.plugin.base.GsonTransformer;
-import com.github.bdpiparva.plugin.base.metadata.MetadataExtractor;
+import com.github.bdpiparva.plugin.base.executors.Executor;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
-import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
-public class MetadataExecutor implements Executor {
-    private final Class<?> metadataClass;
-    private final MetadataExtractor metadataExtractor;
-
-    public MetadataExecutor(Class<?> metadataClass) {
-        this.metadataClass = metadataClass;
-        metadataExtractor = new MetadataExtractor();
-    }
-
+public abstract class AbstractExecutor<T> implements Executor {
     @Override
-    public GoPluginApiResponse execute(GoPluginApiRequest request) {
-        return DefaultGoPluginApiResponse.success(GsonTransformer.toJson(metadataExtractor.forClass(metadataClass)));
+    public final GoPluginApiResponse execute(GoPluginApiRequest request) {
+        final T parsedRequest = parseRequest(request.requestBody());
+        return execute(parsedRequest);
     }
+
+    protected abstract GoPluginApiResponse execute(T request);
+
+    protected abstract T parseRequest(String body);
 }

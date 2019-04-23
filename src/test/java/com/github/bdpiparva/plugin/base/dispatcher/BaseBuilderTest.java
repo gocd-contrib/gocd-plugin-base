@@ -16,19 +16,24 @@
 
 package com.github.bdpiparva.plugin.base.dispatcher;
 
-import com.github.bdpiparva.plugin.base.executors.Executor;
-import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
-import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
+import com.github.bdpiparva.plugin.base.dispatcher.elastic.ElasticBaseBuilder;
+import com.github.bdpiparva.plugin.base.dispatcher.secrets.SecretsBaseBuilder;
+import org.junit.jupiter.api.Test;
 
-public abstract class LookupExecutor<T> implements Executor {
+import static org.assertj.core.api.Assertions.assertThat;
 
-    @Override
-    public GoPluginApiResponse execute(GoPluginApiRequest request) {
-        final T parsedRequest = parseRequest(request.requestBody());
-        return execute(parsedRequest);
+class BaseBuilderTest {
+    @Test
+    void shouldReturnBaseBuilderForSecrets() {
+        assertThat(BaseBuilder.forSecrets())
+                .isNotNull()
+                .isInstanceOf(SecretsBaseBuilder.class);
     }
 
-    protected abstract GoPluginApiResponse execute(T request);
-
-    protected abstract T parseRequest(String body);
+    @Test
+    void shouldReturnBaseBuilderForElastic() {
+        assertThat(BaseBuilder.forElastic())
+                .isNotNull()
+                .isInstanceOf(ElasticBaseBuilder.class);
+    }
 }

@@ -25,17 +25,17 @@ import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import java.util.Map;
 import java.util.Optional;
 
-public class RequestDispatcher {
+public final class RequestDispatcher {
     private final Map<String, Executor> dispatcherRegistry;
     private final GoApplicationAccessor accessor;
 
-    RequestDispatcher(Map<String, Executor> dispatcherRegistry, GoApplicationAccessor accessor) {
+    public RequestDispatcher(Map<String, Executor> dispatcherRegistry, GoApplicationAccessor accessor) {
         this.accessor = accessor;
         this.dispatcherRegistry = dispatcherRegistry;
     }
 
 
-    public GoPluginApiResponse dispatch(GoPluginApiRequest request) throws UnhandledRequestTypeException {
+    public final GoPluginApiResponse dispatch(GoPluginApiRequest request) throws UnhandledRequestTypeException {
         final Optional<Executor> executorOptional = Optional.ofNullable(dispatcherRegistry.get(request.requestName()));
 
         return executorOptional.map(executor -> executor.execute(request))
