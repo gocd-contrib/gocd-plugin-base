@@ -14,14 +14,24 @@
  * limitations under the License.
  */
 
-apply plugin: 'java'
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+  }
+}
+
 apply plugin: 'maven-publish'
+apply plugin: 'java'
+apply plugin: 'com.bmuschko.nexus'
 apply from: "https://raw.githubusercontent.com/gocd/gocd-plugin-gradle-task-helpers/master/test-task-helper.gradle?_=${(int) (new Date().toInstant().epochSecond / 60)}"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-group = "com.bdpiparva.plugin.base"
+group = "com.github.bdpiparva.plugin.base"
 version = '0.0.2'
 description = 'Helper utility to write gocd plugins'
 
@@ -47,6 +57,12 @@ test {
   useJUnitPlatform()
 }
 
+extraArchive {
+  sources = false
+  tests = true
+  javadoc = false
+}
+
 task sourcesJar(type: Jar, dependsOn: classes) {
   archiveClassifier = 'sources'
   from sourceSets.main.allSource
@@ -61,34 +77,51 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 publishing {
   publications {
     mavenJava(MavenPublication) {
-      artifact sourcesJar
-      artifact javadocJar
-      groupId = project.group
-      artifactId = rootProject.name
-      version = project.version
+      modifyPom
       from components.java
+    }
+  }
+}
 
-      pom {
-        name = 'Helper utility to write gocd plugins'
-        description = 'Helper utility to write gocd plugins'
-        url = 'https://github.com/bdpiparva/gocd-plugin-base'
-        licenses {
-          license {
-            name = 'The Apache License, Version 2.0'
-            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-          }
-        }
-        developers {
-          developer {
-            id = 'bdpiparva'
-            name = 'Bhupendrakumar Piprava'
-          }
-        }
-        scm {
-          connection = 'https://github.com/bdpiparva/gocd-plugin-base'
-          developerConnection = 'https://github.com/bdpiparva'
-          url = 'https://github.com/bdpiparva/gocd-plugin-base'
-        }
+modifyPom {
+  project {
+    name = project.name
+    groupId = project.group
+    artifactId = rootProject.name
+    version = project.version
+    packaging 'jar'
+    description project.description
+    url 'https://github.com/bdpiparva/gocd-plugin-base'
+    inceptionYear 2018
+
+    scm {
+      url 'https://github.com/bdpiparva/gocd-plugin-base'
+      connection 'scm:https://github.com/bdpiparva/gocd-plugin-base'
+      developerConnection 'https://github.com/bdpiparva'
+    }
+
+    issueManagement {
+      url 'https://github.com/bdpiparva/gocd-plugin-base/issues'
+      system 'GitHub'
+    }
+
+    licenses {
+      license {
+        name 'Apache License, Version 2.0'
+        url 'https://www.apache.org/licenses/LICENSE-2.0'
+        distribution 'repo'
+      }
+    }
+
+    organization {
+      name 'ThoughtWorks, Inc.'
+      url 'https://www.thoughtworks.com'
+    }
+
+    developers {
+      developer {
+        id = 'bdpiparva'
+        name = 'Bhupendrakumar Piprava'
       }
     }
   }
