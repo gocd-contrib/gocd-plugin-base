@@ -32,7 +32,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 group = "com.github.bdpiparva.plugin.base"
-version = '0.0.3'
+version = '0.0.4'
 description = 'Helper utility to write gocd plugins'
 
 repositories {
