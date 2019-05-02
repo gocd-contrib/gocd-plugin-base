@@ -4,6 +4,8 @@ import com.github.bdpiparva.plugin.base.dispatcher.VersionedExtensionBuilder;
 import com.github.bdpiparva.plugin.base.executors.MetadataExecutor;
 import com.github.bdpiparva.plugin.base.executors.ValidationExecutor;
 import com.github.bdpiparva.plugin.base.executors.ViewRequestExecutor;
+import com.github.bdpiparva.plugin.base.executors.notification.AgentStatusNotificationExecutor;
+import com.github.bdpiparva.plugin.base.executors.notification.StageStatusNotificationExecutor;
 import com.github.bdpiparva.plugin.base.validation.DefaultValidator;
 import com.github.bdpiparva.plugin.base.validation.Validator;
 
@@ -53,5 +55,13 @@ public class NotificationBuilderV4 extends VersionedExtensionBuilder<Notificatio
 
         final String responseBody = toJson(of(notificationTypes).collect(toList()));
         return register(REQUEST_NOTIFICATIONS_INTERESTED_IN, (request) -> success(responseBody));
+    }
+
+    public NotificationBuilderV4 stageStatus(StageStatusNotificationExecutor executor) {
+        return register(REQUEST_STAGE_STATUS, executor);
+    }
+
+    public NotificationBuilderV4 agentStatus(AgentStatusNotificationExecutor executor) {
+        return register(REQUEST_AGENT_STATUS, executor);
     }
 }

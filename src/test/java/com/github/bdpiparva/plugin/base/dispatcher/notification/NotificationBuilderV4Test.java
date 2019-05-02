@@ -1,6 +1,10 @@
 package com.github.bdpiparva.plugin.base.dispatcher.notification;
 
 import com.github.bdpiparva.plugin.base.dispatcher.RequestDispatcher;
+import com.github.bdpiparva.plugin.base.executors.notification.AgentStatusNotificationExecutor;
+import com.github.bdpiparva.plugin.base.executors.notification.StageStatusNotificationExecutor;
+import com.github.bdpiparva.plugin.base.executors.notification.models.AgentStatusRequest;
+import com.github.bdpiparva.plugin.base.executors.notification.models.StageStatusRequest;
 import com.github.bdpiparva.plugin.base.validation.ValidationError;
 import com.github.bdpiparva.plugin.base.validation.ValidationResult;
 import com.github.bdpiparva.plugin.base.validation.Validator;
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 
 import static com.github.bdpiparva.plugin.base.GsonTransformer.fromJson;
 import static com.github.bdpiparva.plugin.base.dispatcher.notification.NotificationBuilderV4.*;
+import static com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse.success;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
@@ -112,6 +117,7 @@ class NotificationBuilderV4Test {
         @BeforeEach
         void setUp() {
             when(request.requestName()).thenReturn(REQUEST_NOTIFICATIONS_INTERESTED_IN);
+            when(request.requestBody()).thenReturn("{}");
         }
 
         @Test
@@ -132,6 +138,44 @@ class NotificationBuilderV4Test {
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("Provide at least one notification type!");
         }
+    }
+
+    @Test
+    void shouldSupportStageStatusNotificationExecutor() throws UnhandledRequestTypeException {
+        when(request.requestName()).thenReturn(REQUEST_STAGE_STATUS);
+        when(request.requestBody()).thenReturn("{}");
+        RequestDispatcher requestDispatcher = new NotificationBuilderV4()
+                .stageStatus(new StageStatusNotificationExecutor() {
+                    @Override
+                    protected GoPluginApiResponse execute(StageStatusRequest stageStatusRequest) {
+                        return success("stage-status-response");
+                    }
+                })
+                .build();
+
+        GoPluginApiResponse response = requestDispatcher.dispatch(request);
+
+        assertThat(response.responseCode()).isEqualTo(200);
+        assertThat(response.responseBody()).isEqualTo("stage-status-response");
+    }
+
+    @Test
+    void shouldSupportAgentStatusNotificationExecutor() throws UnhandledRequestTypeException {
+        when(request.requestName()).thenReturn(REQUEST_AGENT_STATUS);
+        when(request.requestBody()).thenReturn("{}");
+        RequestDispatcher requestDispatcher = new NotificationBuilderV4()
+                .agentStatus(new AgentStatusNotificationExecutor() {
+                    @Override
+                    protected GoPluginApiResponse execute(AgentStatusRequest stageStatusRequest) {
+                        return success("agent-status-response");
+                    }
+                })
+                .build();
+
+        GoPluginApiResponse response = requestDispatcher.dispatch(request);
+
+        assertThat(response.responseCode()).isEqualTo(200);
+        assertThat(response.responseBody()).isEqualTo("agent-status-response");
     }
 }
 
