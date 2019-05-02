@@ -16,12 +16,30 @@
 
 package com.github.bdpiparva.plugin.base.executors;
 
-public class ViewRequestExecutor extends ResourceRequestExecutor {
+import com.github.bdpiparva.plugin.base.ResourceReader;
+import com.google.gson.JsonObject;
+import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
+import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
+import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
+
+public class ViewRequestExecutor implements Executor {
+    private final String resourcePath;
+    private final String key;
+
     public ViewRequestExecutor(String resourcePath) {
         this("template", resourcePath);
     }
 
     public ViewRequestExecutor(String key, String resourcePath) {
-        super(key, resourcePath);
+        this.key = key;
+        this.resourcePath = resourcePath;
+    }
+
+    @Override
+    public GoPluginApiResponse execute(GoPluginApiRequest request) {
+        JsonObject responseJson = new JsonObject();
+        String content = ResourceReader.readResource(resourcePath);
+        responseJson.addProperty(key, content);
+        return DefaultGoPluginApiResponse.success(GSON.toJson(responseJson));
     }
 }

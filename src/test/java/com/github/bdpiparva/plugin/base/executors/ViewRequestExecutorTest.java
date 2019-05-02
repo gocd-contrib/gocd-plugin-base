@@ -41,6 +41,6 @@ class ViewRequestExecutorTest {
 
         Map<String, String> responseBody = new Gson().fromJson(response.responseBody(), type);
         assertThat(responseBody.size()).isEqualTo(1);
-        assertThat(getDecoder().decode(responseBody.get("template"))).isEqualTo(ResourceReader.readResourceBytes("/dummy-template.html"));
+        assertThat(responseBody.get("template")).isEqualTo(ResourceReader.readResource("/dummy-template.html"));
     }
 }
