@@ -1,0 +1,12 @@
+{
+  "agent_config_state": "enabled",
+  "agent_state": "building",
+  "build_state": "building",
+  "free_space": "100",
+  "host_name": "agent_hostname",
+  "ip_address": "127.0.0.1",
+  "is_elastic": true,
+  "operating_system": "rh",
+  "transition_time": "2019-05-02T16:30:31.672+0000",
+  "uuid": "agent_uuid"
+}

@@ -16,8 +16,8 @@
 
 package com.github.bdpiparva.plugin.base.validation;
 
-import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
+import java.util.Map;
 
 public interface Validator {
-    ValidationResult validate(GoPluginApiRequest request);
+    ValidationResult validate(Map<String, String> requestBody);
 }

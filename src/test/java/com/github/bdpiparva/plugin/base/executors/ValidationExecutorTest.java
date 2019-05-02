@@ -21,9 +21,13 @@ import com.github.bdpiparva.plugin.base.validation.Validator;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import org.json.JSONException;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 
+import java.util.Map;
+
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
@@ -36,14 +40,14 @@ class ValidationExecutorTest {
         final Validator validator2 = mock(Validator.class);
         final GoPluginApiRequest request = mock(GoPluginApiRequest.class);
 
-        when(validator1.validate(request)).thenReturn(new ValidationResult());
-        when(validator2.validate(request)).thenReturn(new ValidationResult());
+        when(validator1.validate(anyMap())).thenReturn(new ValidationResult());
+        when(validator2.validate(anyMap())).thenReturn(new ValidationResult());
 
         new ValidationExecutor(validator1, validator2).execute(request);
 
         final InOrder inOrder = inOrder(validator1, validator2);
-        inOrder.verify(validator1).validate(request);
-        inOrder.verify(validator2).validate(request);
+        inOrder.verify(validator1).validate(anyMap());
+        inOrder.verify(validator2).validate(anyMap());
     }
 
     @Test
@@ -51,7 +55,7 @@ class ValidationExecutorTest {
         final Validator validator = mock(Validator.class);
         final GoPluginApiRequest request = mock(GoPluginApiRequest.class);
 
-        when(validator.validate(request)).thenReturn(new ValidationResult());
+        when(validator.validate(anyMap())).thenReturn(new ValidationResult());
 
         final GoPluginApiResponse response = new ValidationExecutor(validator).execute(request);
 
@@ -66,7 +70,7 @@ class ValidationExecutorTest {
 
         final ValidationResult validationResult = new ValidationResult();
         validationResult.add("Path", "Path must not be black.");
-        when(validator.validate(request)).thenReturn(validationResult);
+        when(validator.validate(anyMap())).thenReturn(validationResult);
 
         final GoPluginApiResponse response = new ValidationExecutor(validator).execute(request);
 
@@ -79,5 +83,39 @@ class ValidationExecutorTest {
                 "]";
 
         assertEquals(expectedResponse, response.responseBody(), true);
+    }
+
+    @Nested
+    class asMap {
+        @Test
+        void shouldConvertPluginSettingsRequestBodyToMap() {
+            final Map<String, String> requestBodyAsMap = new ValidationExecutor(true)
+                    .asMap("{\"plugin-settings\":{\"key-one\":{\"value\":\"value-one\"},\"key-two\":{\"value\":\"value-two\"}}}");
+
+            assertThat(requestBodyAsMap)
+                    .hasSize(2)
+                    .containsEntry("key-one", "value-one")
+                    .containsEntry("key-two", "value-two");
+        }
+
+        @Test
+        void shouldConvertConfigsRequestBodyToMap() {
+            final Map<String, String> requestBodyAsMap = new ValidationExecutor(false)
+                    .asMap("{\"Url\":\"some-url\", \"Token\":\"some-token\"}");
+
+            assertThat(requestBodyAsMap)
+                    .hasSize(2)
+                    .containsEntry("Url", "some-url")
+                    .containsEntry("Token", "some-token");
+        }
+    }
+
+    @Test
+    void shouldCallValidatorsForPluginSettingsValidationRequest() {
+        final Validator validator1 = mock(Validator.class);
+        final GoPluginApiRequest request = mock(GoPluginApiRequest.class);
+        when(request.requestBody()).thenReturn("{ \"Url\": \"some-url\"");
+
+        final Map<String, String> requestBody = singletonMap("Url", "some-url");
     }
 }

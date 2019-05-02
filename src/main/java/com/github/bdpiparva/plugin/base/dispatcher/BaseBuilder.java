@@ -17,6 +17,7 @@
 package com.github.bdpiparva.plugin.base.dispatcher;
 
 import com.github.bdpiparva.plugin.base.dispatcher.elastic.ElasticBaseBuilder;
+import com.github.bdpiparva.plugin.base.dispatcher.notification.NotificationBaseBuilder;
 import com.github.bdpiparva.plugin.base.dispatcher.secrets.SecretsBaseBuilder;
 
 public class BaseBuilder {
@@ -26,5 +27,9 @@ public class BaseBuilder {
 
     public static ElasticBaseBuilder forElastic() {
         return new ElasticBaseBuilder();
+    }
+
+    public static NotificationBaseBuilder forNotification() {
+        return new NotificationBaseBuilder();
     }
 }

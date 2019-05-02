@@ -19,30 +19,30 @@ package com.github.bdpiparva.plugin.base.validation;
 import com.github.bdpiparva.plugin.base.annotations.Property;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class DefaultValidatorTest {
-
     private DefaultValidator validator;
-    private GoPluginApiRequest request;
 
     @BeforeEach
     void setUp() {
-        request = mock(GoPluginApiRequest.class);
         validator = new DefaultValidator(SomeConfig.class);
     }
 
     @Test
     void shouldReturnResultWithErrorsIfConfigHasUnknownFields() {
-        when(request.requestBody()).thenReturn("{\"Url\":\"http://foo\",\"Permission\":\"unknown field\"}");
+        final Map<String, String> requestBody = new HashMap<String, String>() {{
+            put("Url", "https://foo");
+            put("Permission", "unknown field");
+        }};
 
-        final ValidationResult result = validator.validate(request);
+        final ValidationResult result = validator.validate(requestBody);
 
         assertThat(result)
                 .hasSize(1)
@@ -51,9 +51,11 @@ class DefaultValidatorTest {
 
     @Test
     void shouldReturnResultWithErrorsIfMandatoryFieldHasNoValue() {
-        when(request.requestBody()).thenReturn("{\"Path\":\"/foo\"}");
+        final Map<String, String> requestBody = new HashMap<String, String>() {{
+            put("Path", "foo");
+        }};
 
-        final ValidationResult result = validator.validate(request);
+        final ValidationResult result = validator.validate(requestBody);
 
         assertThat(result)
                 .hasSize(1)
@@ -62,9 +64,11 @@ class DefaultValidatorTest {
 
     @Test
     void shouldReturnResultWithoutErrorsIfConfigIsValid() {
-        when(request.requestBody()).thenReturn("{\"Url\":\"/foo\"}");
+        final Map<String, String> requestBody = new HashMap<String, String>() {{
+            put("Url", "https://foo");
+        }};
 
-        final ValidationResult result = validator.validate(request);
+        final ValidationResult result = validator.validate(requestBody);
 
         assertThat(result).isEmpty();
     }

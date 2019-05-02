@@ -23,7 +23,7 @@ import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
-public interface Executor<T> {
+public interface Executor {
     Logger LOGGER = Logger.getLoggerFor(Executor.class);
 
     Gson GSON = new GsonBuilder()

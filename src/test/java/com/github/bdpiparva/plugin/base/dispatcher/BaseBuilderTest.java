@@ -17,6 +17,7 @@
 package com.github.bdpiparva.plugin.base.dispatcher;
 
 import com.github.bdpiparva.plugin.base.dispatcher.elastic.ElasticBaseBuilder;
+import com.github.bdpiparva.plugin.base.dispatcher.notification.NotificationBaseBuilder;
 import com.github.bdpiparva.plugin.base.dispatcher.secrets.SecretsBaseBuilder;
 import org.junit.jupiter.api.Test;
 
@@ -35,5 +36,12 @@ class BaseBuilderTest {
         assertThat(BaseBuilder.forElastic())
                 .isNotNull()
                 .isInstanceOf(ElasticBaseBuilder.class);
+    }
+
+    @Test
+    void shouldReturnBaseBuilderForNotification() {
+        assertThat(BaseBuilder.forNotification())
+                .isNotNull()
+                .isInstanceOf(NotificationBaseBuilder.class);
     }
 }
