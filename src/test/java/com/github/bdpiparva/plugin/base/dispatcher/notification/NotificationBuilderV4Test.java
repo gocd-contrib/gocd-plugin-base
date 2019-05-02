@@ -9,16 +9,17 @@ import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Map;
 
 import static com.github.bdpiparva.plugin.base.GsonTransformer.fromJson;
 import static com.github.bdpiparva.plugin.base.dispatcher.notification.NotificationBuilderV4.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -33,10 +34,10 @@ class NotificationBuilderV4Test {
     }
 
     @Test
-    void shouldSupportGetConfiguration() throws UnhandledRequestTypeException {
-        when(request.requestName()).thenReturn(REQUEST_GET_CONFIGURATION);
+    void shouldSupportGetPluginSettingsMetadata() throws UnhandledRequestTypeException {
+        when(request.requestName()).thenReturn(REQUEST_GET_PLUGIN_SETTINGS_METADATA);
         RequestDispatcher requestDispatcher = new NotificationBuilderV4()
-                .configuration(NotificationConfig.class)
+                .pluginSettings(NotificationConfig.class)
                 .build();
 
         GoPluginApiResponse response = requestDispatcher.dispatch(request);
@@ -46,10 +47,10 @@ class NotificationBuilderV4Test {
 
     @Test
     void shouldAddDefaultValidator() throws UnhandledRequestTypeException {
-        when(request.requestName()).thenReturn(REQUEST_VALIDATE_CONFIG);
-        when(request.requestBody()).thenReturn("{\"key\":\"value\"}");
+        when(request.requestName()).thenReturn(REQUEST_VALIDATE_PLUGIN_SETTINGS);
+        when(request.requestBody()).thenReturn("{\"plugin-settings\":{\"key-one\":{\"value\":\"value-one\"},\"key-two\":{\"value\":\"value-two\"}}}");
         RequestDispatcher requestDispatcher = new NotificationBuilderV4()
-                .configuration(NotificationConfig.class)
+                .pluginSettings(NotificationConfig.class)
                 .build();
         final Type type = new TypeToken<ArrayList<ValidationError>>() {
         }.getType();
@@ -58,15 +59,15 @@ class NotificationBuilderV4Test {
         ArrayList<ValidationError> errors = fromJson(response.responseBody(), type);
 
         assertThat(response.responseCode()).isEqualTo(412);
-        assertThat(errors.size()).isEqualTo(1);
+        assertThat(errors.size()).isEqualTo(2);
     }
 
     @Test
     void shouldNotAddDefaultValidator() throws UnhandledRequestTypeException {
-        when(request.requestName()).thenReturn(REQUEST_VALIDATE_CONFIG);
+        when(request.requestName()).thenReturn(REQUEST_VALIDATE_PLUGIN_SETTINGS);
         when(request.requestBody()).thenReturn("{\"key\":\"value\"}");
         RequestDispatcher requestDispatcher = new NotificationBuilderV4()
-                .configuration(NotificationConfig.class, false)
+                .pluginSettings(NotificationConfig.class, false)
                 .build();
 
         final Type type = new TypeToken<ArrayList<ValidationError>>() {
@@ -80,10 +81,10 @@ class NotificationBuilderV4Test {
     }
 
     @Test
-    void shouldSupportGetView() throws UnhandledRequestTypeException {
-        when(request.requestName()).thenReturn(REQUEST_GET_CONFIG_VIEW);
+    void shouldSupportGetPluginSettingsView() throws UnhandledRequestTypeException {
+        when(request.requestName()).thenReturn(REQUEST_GET_PLUGIN_SETTINGS_VIEW);
         RequestDispatcher requestDispatcher = new NotificationBuilderV4()
-                .configView("/dummy-template.html")
+                .pluginSettingsView("/dummy-template.html")
                 .build();
 
         GoPluginApiResponse response = requestDispatcher.dispatch(request);
@@ -91,18 +92,46 @@ class NotificationBuilderV4Test {
     }
 
     @Test
-    void shouldSupportValidateConfig() throws UnhandledRequestTypeException {
-        when(request.requestName()).thenReturn(REQUEST_VALIDATE_CONFIG);
+    void shouldSupportValidatePluginSettings() throws UnhandledRequestTypeException {
+        when(request.requestName()).thenReturn(REQUEST_VALIDATE_PLUGIN_SETTINGS);
+        when(request.requestBody()).thenReturn("{\"plugin-settings\":{\"key-one\":{\"value\":\"value-one\"},\"key-two\":{\"value\":\"value-two\"}}}");
         Validator validator = mock(Validator.class);
-        when(validator.validate(request)).thenReturn(new ValidationResult());
+        when(validator.validate(anyMap())).thenReturn(new ValidationResult());
 
         RequestDispatcher requestDispatcher = new NotificationBuilderV4()
-                .validateConfig(validator)
+                .validatePluginSettings(validator)
                 .build();
 
         GoPluginApiResponse response = requestDispatcher.dispatch(request);
         assertThat(response.responseCode()).isEqualTo(200);
         verify(validator).validate(any());
+    }
+
+    @Nested
+    class notificationInterestedIn {
+        @BeforeEach
+        void setUp() {
+            when(request.requestName()).thenReturn(REQUEST_NOTIFICATIONS_INTERESTED_IN);
+        }
+
+        @Test
+        void shouldSupportNotificationInterestedIn() throws UnhandledRequestTypeException {
+            RequestDispatcher requestDispatcher = new NotificationBuilderV4()
+                    .notificationInterestedIn(NotificationType.AGENT_STATUS)
+                    .build();
+
+            GoPluginApiResponse response = requestDispatcher.dispatch(request);
+
+            assertThat(response.responseCode()).isEqualTo(200);
+            assertThat(response.responseBody()).isEqualTo("[\"agent-status\"]");
+        }
+
+        @Test
+        void shouldErrorOutIfNoNotificationTypeIsSpecified() {
+            assertThatCode(() -> new NotificationBuilderV4().notificationInterestedIn())
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("Provide at least one notification type!");
+        }
     }
 }
 

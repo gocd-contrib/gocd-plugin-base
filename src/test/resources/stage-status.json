@@ -1,0 +1,185 @@
+{
+  "pipeline": {
+    "name": "pipeline-name",
+    "label": "LABEL-1",
+    "counter": "1",
+    "group": "pipeline-group",
+    "build-cause": [
+      {
+        "material": {
+          "git-configuration": {
+            "shallow-clone": false,
+            "branch": "branch",
+            "url": "http://user:******@gitrepo.com"
+          },
+          "fingerprint": "df2d6ec04a5f2c7af800e63d69b4cae03e410708ab71685d1aae2c0ebc551c70",
+          "type": "git"
+        },
+        "changed": true,
+        "modifications": [
+          {
+            "revision": "1",
+            "modified-time": "2019-04-30T15:18:21.009+0000",
+            "data": {}
+          }
+        ]
+      },
+      {
+        "material": {
+          "type": "mercurial",
+          "fingerprint": "fbee13e290e6f483bdbaac4e4d768f2e5346964ffff7220ae2093b1b46e8bde6",
+          "mercurial-configuration": {
+            "url": "http://user:******@hgrepo.com"
+          }
+        },
+        "changed": true,
+        "modifications": [
+          {
+            "revision": "1",
+            "modified-time": "2019-04-30T15:18:21.009+0000",
+            "data": {}
+          }
+        ]
+      },
+      {
+        "material": {
+          "svn-configuration": {
+            "check-externals": false,
+            "url": "http://user:******@svnrepo.com",
+            "username": "username"
+          },
+          "fingerprint": "45846a796743c0a28a6ba352e0d0bd917078114c5b739628d20176db3cfd69e6",
+          "type": "svn"
+        },
+        "changed": true,
+        "modifications": [
+          {
+            "revision": "1",
+            "modified-time": "2019-04-30T15:18:21.009+0000",
+            "data": {}
+          }
+        ]
+      },
+      {
+        "material": {
+          "type": "tfs",
+          "fingerprint": "fe2695ff8b242a1aed102b88b38fb709556bdd319e7ff4a0ea0f50c3fe455b31",
+          "tfs-configuration": {
+            "domain": "domain",
+            "project-path": "project-path",
+            "url": "http://user:******@tfsrepo.com",
+            "username": "username"
+          }
+        },
+        "changed": true,
+        "modifications": [
+          {
+            "revision": "1",
+            "modified-time": "2019-04-30T15:18:21.009+0000",
+            "data": {}
+          }
+        ]
+      },
+      {
+        "material": {
+          "perforce-configuration": {
+            "view": "view",
+            "use-tickets": false,
+            "url": "127.0.0.1:1666",
+            "username": "username"
+          },
+          "fingerprint": "c70c53f8cb0081dd5500c1e490bb691dc8dea62005cb095753ccb6a9c29b2438",
+          "type": "perforce"
+        },
+        "changed": true,
+        "modifications": [
+          {
+            "revision": "1",
+            "modified-time": "2019-04-30T15:18:21.009+0000",
+            "data": {}
+          }
+        ]
+      },
+      {
+        "material": {
+          "pipeline-configuration": {
+            "pipeline-name": "pipeline-name",
+            "stage-name": "stage-name"
+          },
+          "fingerprint": "2636be2398c16aaa366f57131a2a4ee6e2929b5e5773a29edad035bb84e08fba",
+          "type": "pipeline"
+        },
+        "changed": true,
+        "modifications": [
+          {
+            "revision": "pipeline-name/1/stage-name/1",
+            "modified-time": "2019-04-30T15:18:21.009+0000",
+            "data": {}
+          }
+        ]
+      },
+      {
+        "material": {
+          "plugin-id": "pluginid",
+          "package-configuration": {
+            "k3": "package-v1"
+          },
+          "repository-configuration": {
+            "k1": "repo-v1"
+          },
+          "fingerprint": "cb94a7ce179837fe999b5bffe311fc56733a0627ea6ff6e1a194abaf1feb21f5",
+          "type": "package"
+        },
+        "changed": true,
+        "modifications": [
+          {
+            "revision": "1",
+            "modified-time": "2019-04-30T15:18:21.009+0000",
+            "data": {}
+          }
+        ]
+      },
+      {
+        "material": {
+          "plugin-id": "pluginid",
+          "scm-configuration": {
+            "k1": "v1"
+          },
+          "fingerprint": "93526030102d3c04964b7b25f15b0e8b63b9c9b294cf614d2829f70b15f46add",
+          "type": "scm"
+        },
+        "changed": true,
+        "modifications": [
+          {
+            "revision": "1",
+            "modified-time": "2019-04-30T15:18:21.009+0000",
+            "data": {}
+          }
+        ]
+      }
+    ],
+    "stage": {
+      "name": "stage-name",
+      "counter": "1",
+      "state": "Passed",
+      "approval-type": "success",
+      "approved-by": "changes",
+      "previous-stage-name": "previous-stage",
+      "previous-stage-counter": 1,
+      "result": "Passed",
+      "create-time": "2011-07-13T14:13:37.100+0000",
+      "last-transition-time": "2011-07-13T14:13:37.100+0000",
+      "jobs": [
+        {
+          "name": "job-name",
+          "schedule-time": "2011-07-13T14:13:37.100+0000",
+          "assign-time": "2011-07-13T14:13:37.100+0000",
+          "complete-time": "2011-07-13T14:13:37.100+0000",
+          "state": "Completed",
+          "result": "Passed",
+          "agent-uuid": "uuid"
+        }
+      ]
+    }
+  }
+}
