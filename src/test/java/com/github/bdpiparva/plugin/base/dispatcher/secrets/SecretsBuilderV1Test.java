@@ -16,17 +16,22 @@
 
 package com.github.bdpiparva.plugin.base.dispatcher.secrets;
 
+import com.github.bdpiparva.plugin.base.annotations.Property;
 import com.github.bdpiparva.plugin.base.dispatcher.RequestDispatcher;
 import com.github.bdpiparva.plugin.base.executors.secrets.LookupExecutor;
 import com.github.bdpiparva.plugin.base.validation.ValidationResult;
 import com.github.bdpiparva.plugin.base.validation.Validator;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
+import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 import static com.github.bdpiparva.plugin.base.DispatcherBuilder.REQUEST_GET_ICON;
 import static com.github.bdpiparva.plugin.base.dispatcher.secrets.SecretsBuilderV1.*;
@@ -97,6 +102,24 @@ class SecretsBuilderV1Test {
     }
 
     @Test
+    void shouldValidateSecretConfig() throws UnhandledRequestTypeException, JSONException {
+        when(request.requestName()).thenReturn(REQUEST_VALIDATE_CONFIG);
+
+        final RequestDispatcher dispatcher = new SecretsBuilderV1()
+                .configMetadata(SecretConfig.class)
+                .build();
+
+        final GoPluginApiResponse response = dispatcher.dispatch(request);
+
+        assertThat(response.responseCode()).isEqualTo(412);
+        String expectedOutput = "[{" +
+                "\"key\":\"Path\"," +
+                "\"message\":\"Path must not be blank.\"}" +
+                "]";
+        JSONAssert.assertEquals(expectedOutput, response.responseBody(), true);
+    }
+
+    @Test
     void shouldSupportLookupSecretConfig() throws UnhandledRequestTypeException {
         when(request.requestName()).thenReturn(REQUEST_SECRETS_LOOKUP);
 
@@ -110,6 +133,7 @@ class SecretsBuilderV1Test {
         assertThat(response.responseBody()).isEqualTo("result");
     }
 }
+
 class DummyLookupExecutor extends LookupExecutor<String> {
 
     @Override
@@ -122,5 +146,10 @@ class DummyLookupExecutor extends LookupExecutor<String> {
         return body;
     }
 }
+
 class SecretConfig {
+    @Expose
+    @SerializedName("Path")
+    @Property(name = "Path", required = true)
+    private String path;
 }
