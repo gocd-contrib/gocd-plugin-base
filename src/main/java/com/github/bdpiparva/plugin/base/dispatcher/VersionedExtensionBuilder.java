@@ -28,6 +28,7 @@ public abstract class VersionedExtensionBuilder<T extends VersionedExtensionBuil
         return new RequestDispatcher(registry, null);
     }
 
+    @SuppressWarnings("unchecked")
     protected T register(String requestName, Executor executor) {
         registry.put(requestName, executor);
         return (T) this;

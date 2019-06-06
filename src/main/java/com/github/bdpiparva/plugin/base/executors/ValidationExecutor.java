@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.github.bdpiparva.plugin.base.GsonTransformer.fromJson;
-import static com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse.VALIDATION_FAILED;
 import static com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse.success;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
@@ -88,7 +87,7 @@ public class ValidationExecutor implements Executor {
         }
 
         LOGGER.debug(format("Validation failed %s.", validationResult));
-        return new DefaultGoPluginApiResponse(VALIDATION_FAILED, GsonTransformer.toJson(validationResult));
+        return DefaultGoPluginApiResponse.success(GsonTransformer.toJson(validationResult));
     }
 
     Map<String, String> asMap(String requestBody) {
