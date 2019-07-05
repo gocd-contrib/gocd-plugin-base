@@ -16,6 +16,7 @@
 
 package cd.go.plugin.base.dispatcher;
 
+import cd.go.plugin.base.dispatcher.authorization.AuthorizationBaseBuilder;
 import cd.go.plugin.base.dispatcher.elastic.ElasticBaseBuilder;
 import cd.go.plugin.base.dispatcher.notification.NotificationBaseBuilder;
 import cd.go.plugin.base.dispatcher.secrets.SecretsBaseBuilder;
@@ -44,5 +45,12 @@ class BaseBuilderTest {
         Assertions.assertThat(BaseBuilder.forNotification())
                 .isNotNull()
                 .isInstanceOf(NotificationBaseBuilder.class);
+    }
+
+    @Test
+    void shouldReturnBaseBuilderForAuthorization() {
+        Assertions.assertThat(BaseBuilder.forAuthorization())
+                .isNotNull()
+                .isInstanceOf(AuthorizationBaseBuilder.class);
     }
 }
