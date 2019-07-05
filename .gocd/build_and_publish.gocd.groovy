@@ -44,7 +44,7 @@ GoCD.script {
           cleanWorkingDir = true
           fetchMaterials = true
           environmentVariables = [
-            'MAVEN_NEXUS_USERNAME'   : 'arvindsv'
+            'MAVEN_NEXUS_USERNAME': 'arvindsv'
           ]
           secureEnvironmentVariables = [
             'MAVEN_NEXUS_PASSWORD': 'AES:U0+58CAsIkycH+6DUL+Z6w==:EoTd+MQsXP8iL64+eDUi226NbEOGM3N6RfYxZeXH6C30X70xcKKuaEuFVLATe92Ht9RDNrMhXbv2lAt/iEoEbA==',
@@ -62,6 +62,5 @@ GoCD.script {
       }
     }
   }
-}
 }
 
