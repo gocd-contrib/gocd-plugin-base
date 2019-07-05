@@ -5,8 +5,8 @@ This is a helper utility to write GoCD plugin with minimal code.
 ## Secret v1
 
 ```java
-import com.github.bdpiparva.plugin.base.dispatcher.RequestDispatcher;
-import com.github.bdpiparva.plugin.base.dispatcher.RequestDispatcherBuilder;
+import RequestDispatcher;
+import cd.go.plugin.base.dispatcher.RequestDispatcherBuilder;
 import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
 import com.thoughtworks.go.plugin.api.GoPlugin;
 import com.thoughtworks.go.plugin.api.GoPluginIdentifier;

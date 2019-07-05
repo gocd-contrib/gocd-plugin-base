@@ -31,8 +31,8 @@ apply from: "https://raw.githubusercontent.com/gocd/gocd-plugin-gradle-task-help
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-group = "com.github.bdpiparva.plugin.base"
-version = '0.0.5'
+group = "cd.go.plugin.base"
+version = '0.0.1'
 description = 'Helper utility to write gocd plugins'
 
 repositories {
