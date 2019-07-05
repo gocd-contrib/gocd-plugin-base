@@ -17,6 +17,7 @@
 package com.github.bdpiparva.plugin.base.validation;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ValidationResult extends ArrayList<ValidationError> {
     public void merge(ValidationResult validationResult) {
@@ -25,5 +26,15 @@ public class ValidationResult extends ArrayList<ValidationError> {
 
     public boolean add(String key, String message) {
         return add(new ValidationError(key, message));
+    }
+
+    public boolean hasKey(String key) {
+        return find(key).isPresent();
+    }
+
+    public Optional<ValidationError> find(String key) {
+        return this.stream()
+                .filter(error -> key.equals(error.getKey()))
+                .findFirst();
     }
 }

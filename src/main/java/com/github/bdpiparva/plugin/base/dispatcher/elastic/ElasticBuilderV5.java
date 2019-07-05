@@ -17,11 +17,7 @@
 package com.github.bdpiparva.plugin.base.dispatcher.elastic;
 
 import com.github.bdpiparva.plugin.base.dispatcher.VersionedExtensionBuilder;
-import com.github.bdpiparva.plugin.base.executors.IconRequestExecutor;
-import com.github.bdpiparva.plugin.base.executors.MetadataExecutor;
-import com.github.bdpiparva.plugin.base.executors.ValidationExecutor;
-import com.github.bdpiparva.plugin.base.executors.ViewRequestExecutor;
-import com.github.bdpiparva.plugin.base.executors.elastic.AbstractExecutor;
+import com.github.bdpiparva.plugin.base.executors.*;
 import com.github.bdpiparva.plugin.base.executors.elastic.CapabilitiesExecutor;
 import com.github.bdpiparva.plugin.base.validation.DefaultValidator;
 import com.github.bdpiparva.plugin.base.validation.Validator;

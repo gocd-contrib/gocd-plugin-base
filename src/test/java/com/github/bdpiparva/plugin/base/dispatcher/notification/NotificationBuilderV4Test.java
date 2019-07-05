@@ -63,7 +63,7 @@ class NotificationBuilderV4Test {
         GoPluginApiResponse response = requestDispatcher.dispatch(request);
         ArrayList<ValidationError> errors = fromJson(response.responseBody(), type);
 
-        assertThat(response.responseCode()).isEqualTo(412);
+        assertThat(response.responseCode()).isEqualTo(200);
         assertThat(errors.size()).isEqualTo(2);
     }
 

@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-package com.github.bdpiparva.plugin.base.dispatcher;
+package com.github.bdpiparva.plugin.base.dispatcher.authorization;
 
-import com.github.bdpiparva.plugin.base.executors.Executor;
+import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public abstract class VersionedExtensionBuilder<T extends VersionedExtensionBuilder> {
-    protected final Map<String, Executor> registry = new HashMap<>();
-
-    public RequestDispatcher build() {
-        return new RequestDispatcher(registry, null);
-    }
-
-    @SuppressWarnings("unchecked")
-    protected T register(String requestName, Executor executor) {
-        registry.put(requestName, executor);
-        return (T) this;
+class AuthorizationBaseBuilderTest {
+    @Test
+    void shouldReturnVersion2Builder() {
+        assertThat(new AuthorizationBaseBuilder().v2())
+                .isNotNull()
+                .isInstanceOf(AuthorizationBuilderV2.class);
     }
 }

@@ -111,7 +111,7 @@ class SecretsBuilderV1Test {
 
         final GoPluginApiResponse response = dispatcher.dispatch(request);
 
-        assertThat(response.responseCode()).isEqualTo(412);
+        assertThat(response.responseCode()).isEqualTo(200);
         String expectedOutput = "[{" +
                 "\"key\":\"Path\"," +
                 "\"message\":\"Path must not be blank.\"}" +

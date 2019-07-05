@@ -74,7 +74,7 @@ class ValidationExecutorTest {
 
         final GoPluginApiResponse response = new ValidationExecutor(validator).execute(request);
 
-        assertThat(response.responseCode()).isEqualTo(412);
+        assertThat(response.responseCode()).isEqualTo(200);
         final String expectedResponse = "[\n" +
                 "  {\n" +
                 "    \"key\": \"Path\",\n" +

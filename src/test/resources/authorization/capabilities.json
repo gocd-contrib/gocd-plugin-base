@@ -1,0 +1,6 @@
+{
+  "supported_auth_type": "password",
+  "can_search": false,
+  "can_authorize": false,
+  "can_get_user_roles": true
+}

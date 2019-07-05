@@ -25,7 +25,7 @@ import com.github.bdpiparva.plugin.base.executors.secrets.LookupExecutor;
 import com.github.bdpiparva.plugin.base.validation.DefaultValidator;
 import com.github.bdpiparva.plugin.base.validation.Validator;
 
-public class SecretsBuilderV1 extends VersionedExtensionBuilder {
+public class SecretsBuilderV1 extends VersionedExtensionBuilder<SecretsBuilderV1> {
     public static final String REQUEST_GET_ICON = "go.cd.secrets.get-icon";
     public static final String REQUEST_GET_CONFIG_METADATA = "go.cd.secrets.secrets-config.get-metadata";
     protected static final String REQUEST_GET_CONFIG_VIEW = "go.cd.secrets.secrets-config.get-view";
@@ -37,8 +37,7 @@ public class SecretsBuilderV1 extends VersionedExtensionBuilder {
     }
 
     public SecretsBuilderV1 icon(String iconPath, String contentType) {
-        registry.put(REQUEST_GET_ICON, new IconRequestExecutor(iconPath, contentType));
-        return this;
+        return register(REQUEST_GET_ICON, new IconRequestExecutor(iconPath, contentType));
     }
 
     public SecretsBuilderV1 configMetadata(Class<?> configClass) {
@@ -46,16 +45,14 @@ public class SecretsBuilderV1 extends VersionedExtensionBuilder {
     }
 
     public SecretsBuilderV1 configMetadata(Class<?> configClass, boolean addDefaultValidators) {
-        registry.put(REQUEST_GET_CONFIG_METADATA, new MetadataExecutor(configClass));
         if (addDefaultValidators) {
             ((ValidationExecutor) registry.get(REQUEST_VALIDATE_CONFIG)).addAll(new DefaultValidator(configClass));
         }
-        return this;
+        return register(REQUEST_GET_CONFIG_METADATA, new MetadataExecutor(configClass));
     }
 
     public SecretsBuilderV1 configView(String configViewTemplatePath) {
-        registry.put(REQUEST_GET_CONFIG_VIEW, new ViewRequestExecutor(configViewTemplatePath));
-        return this;
+        return register(REQUEST_GET_CONFIG_VIEW, new ViewRequestExecutor(configViewTemplatePath));
     }
 
 
@@ -65,7 +62,6 @@ public class SecretsBuilderV1 extends VersionedExtensionBuilder {
     }
 
     public SecretsBuilderV1 lookup(LookupExecutor lookupExecutor) {
-        registry.put(REQUEST_SECRETS_LOOKUP, lookupExecutor);
-        return this;
+        return register(REQUEST_SECRETS_LOOKUP, lookupExecutor);
     }
 }
