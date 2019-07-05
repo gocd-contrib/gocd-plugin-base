@@ -40,6 +40,7 @@ repositories {
 
   maven {
     credentials {
+      url "https://repo1.maven.org/maven2/"
       username "$mavenUser"
       password "$mavenPassword"
     }
@@ -94,14 +95,8 @@ publishing {
 }
 
 signing {
-  if (!project.hasProperty('gpgKeyId')) {
-    throw new GradleScriptException('Please set the property \'gpgKeyId\' ', null)
-  }
-  if (!project.hasProperty('gpgPassword')) {
-    throw new GradleScriptException('Please set the property \'gpgPassword\' ', null)
-  }
-  project.ext.'signing.keyId' = findProperty('gpgKeyId')
-  project.ext.'signing.password' = findProperty('gpgPassword')
+  project.ext.'signing.keyId' = "$gpgKeyId"
+  project.ext.'signing.password' = "$gpgPassword"
 }
 
 modifyPom {
@@ -112,17 +107,17 @@ modifyPom {
     version = project.version
     packaging 'jar'
     description project.description
-    url 'https://github.com/bdpiparva/gocd-plugin-base'
+    url 'https://github.com/gocd-contrib/gocd-plugin-base'
     inceptionYear 2018
 
     scm {
-      url 'https://github.com/bdpiparva/gocd-plugin-base'
-      connection 'scm:https://github.com/bdpiparva/gocd-plugin-base'
-      developerConnection 'https://github.com/bdpiparva'
+      url 'https://github.com/gocd-contrib/gocd-plugin-base'
+      connection 'scm:https://github.com/gocd-contrib/gocd-plugin-base'
+      developerConnection 'https://github.com/gocd-contrib'
     }
 
     issueManagement {
-      url 'https://github.com/bdpiparva/gocd-plugin-base/issues'
+      url 'https://github.com/gocd-contrib/gocd-plugin-base/issues'
       system 'GitHub'
     }
 
