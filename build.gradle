@@ -37,6 +37,13 @@ description = 'Helper utility to write gocd plugins'
 
 repositories {
   mavenCentral()
+
+  maven {
+    credentials {
+      username "$mavenUser"
+      password "$mavenPassword"
+    }
+  }
 }
 
 dependencies {
@@ -84,6 +91,17 @@ publishing {
       from components.java
     }
   }
+}
+
+signing {
+  if (!project.hasProperty('gpgKeyId')) {
+    throw new GradleScriptException('Please set the property \'gpgKeyId\' ', null)
+  }
+  if (!project.hasProperty('gpgPassword')) {
+    throw new GradleScriptException('Please set the property \'gpgPassword\' ', null)
+  }
+  project.ext.'signing.keyId' = findProperty('gpgKeyId')
+  project.ext.'signing.password' = findProperty('gpgPassword')
 }
 
 modifyPom {
