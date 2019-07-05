@@ -17,7 +17,7 @@
 package com.github.bdpiparva.plugin.base.dispatcher.elastic;
 
 import com.github.bdpiparva.plugin.base.dispatcher.RequestDispatcher;
-import com.github.bdpiparva.plugin.base.executors.elastic.AbstractExecutor;
+import com.github.bdpiparva.plugin.base.executors.AbstractExecutor;
 import com.github.bdpiparva.plugin.base.validation.ValidationResult;
 import com.github.bdpiparva.plugin.base.validation.Validator;
 import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
