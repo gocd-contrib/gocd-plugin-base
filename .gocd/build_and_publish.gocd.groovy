@@ -17,7 +17,7 @@ GoCD.script {
         git('plugin-base') {
           branch = 'master'
           shallowClone = false
-          url = 'https://git.gocd.io/git/gocd-contrib/gocd-plugin-base'
+          url = 'https://github.com/gocd-contrib/gocd-plugin-base'
           destination = 'plugin-base'
           autoUpdate = true
         }
