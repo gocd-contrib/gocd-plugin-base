@@ -42,7 +42,7 @@ repositories {
     credentials {
       url "https://repo1.maven.org/maven2/"
       username "$mavenUser"
-      password "$mavenPassword"
+      password System.getenv('MAVEN_NEXUS_PASSWORD')
     }
   }
 }
@@ -95,8 +95,13 @@ publishing {
 }
 
 signing {
-  project.ext.'signing.keyId' = "$gpgKeyId"
-  project.ext.'signing.password' = "$gpgPassword"
+  def gpgKey = System.getenv('GPG_KEY_ID')
+  def gpgPassword = System.getenv('GOCD_GPG_PASSPHRASE')
+  if (gpgKey == null || gpgPassword == null) {
+    throw new GradleScriptException('Please set the value of GPG_KEY_ID and GOCD_GPG_PASSPHRASE', null)
+  }
+  project.ext.'signing.keyId' = gpgKey
+  project.ext.'signing.password' = gpgPassword
 }
 
 modifyPom {
