@@ -37,6 +37,14 @@ description = 'Helper utility to write gocd plugins'
 
 repositories {
   mavenCentral()
+
+  maven {
+    credentials {
+      url "https://repo1.maven.org/maven2/"
+      username "$mavenUser"
+      password "$mavenPassword"
+    }
+  }
 }
 
 dependencies {
@@ -86,6 +94,11 @@ publishing {
   }
 }
 
+signing {
+  project.ext.'signing.keyId' = "$gpgKeyId"
+  project.ext.'signing.password' = "$gpgPassword"
+}
+
 modifyPom {
   project {
     name = project.name
@@ -94,17 +107,17 @@ modifyPom {
     version = project.version
     packaging 'jar'
     description project.description
-    url 'https://github.com/bdpiparva/gocd-plugin-base'
+    url 'https://github.com/gocd-contrib/gocd-plugin-base'
     inceptionYear 2018
 
     scm {
-      url 'https://github.com/bdpiparva/gocd-plugin-base'
-      connection 'scm:https://github.com/bdpiparva/gocd-plugin-base'
-      developerConnection 'https://github.com/bdpiparva'
+      url 'https://github.com/gocd-contrib/gocd-plugin-base'
+      connection 'scm:https://github.com/gocd-contrib/gocd-plugin-base'
+      developerConnection 'https://github.com/gocd-contrib'
     }
 
     issueManagement {
-      url 'https://github.com/bdpiparva/gocd-plugin-base/issues'
+      url 'https://github.com/gocd-contrib/gocd-plugin-base/issues'
       system 'GitHub'
     }
 
