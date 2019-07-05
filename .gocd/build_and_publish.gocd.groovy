@@ -55,7 +55,7 @@ GoCD.script {
               elasticProfileId = 'ecs-gocd-dev-build'
               tasks {
                 bash {
-                  commandString = './gradlew uploadArchives -PmavenUser=${MAVEN_NEXUS_USERNAME} -PmavenPassword=${MAVEN_NEXUS_PASSWORD} -PgpgKeyId=${GPG_KEY_ID} -Psigning.secretKeyRingFile=$(readlink -f ../signing-keys/*.gpg) -PgpgPassword=${GOCD_GPG_PASSPHRASE}'
+                  commandString = './gradlew uploadArchives -PmavenUser=${MAVEN_NEXUS_USERNAME} -PmavenPassword=${MAVEN_NEXUS_PASSWORD} -PgpgKeyId=${GPG_KEY_ID} -Psigning.secretKeyRingFile="$(readlink -f ../signing-keys/*.gpg)" -PgpgPassword=${GOCD_GPG_PASSPHRASE}'
                   workingDir = "plugin-base"
                 }
               }
