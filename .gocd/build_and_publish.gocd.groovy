@@ -5,6 +5,7 @@ GoCD.script {
       labelTemplate = '${COUNT}'
       lockBehavior = 'none'
       secureEnvironmentVariables = [
+        GPG_KEY_ID         : 'AES:abQlKbCl6aE5NgVisyu7jg==:/wrZ34d5qiawh14DxK/6JQbw22kPO+k7HNcuFqJOqL8=',
         GOCD_GPG_PASSPHRASE: 'AES:7lAutKoRKMuSnh3Sbg9DeQ==:8fhND9w/8AWw6dJhmWpTcCdKSsEcOzriQNiKFZD6XtN+sJvZ65NH/QFXRNiy192+SSTKsbhOrFmw+kAKt5+MH1Erd6H54zJjpSgvJUmsJaQ='
       ]
       materials {
@@ -47,15 +48,14 @@ GoCD.script {
             'MAVEN_NEXUS_USERNAME': 'arvindsv'
           ]
           secureEnvironmentVariables = [
-            'MAVEN_NEXUS_PASSWORD': 'AES:U0+58CAsIkycH+6DUL+Z6w==:EoTd+MQsXP8iL64+eDUi226NbEOGM3N6RfYxZeXH6C30X70xcKKuaEuFVLATe92Ht9RDNrMhXbv2lAt/iEoEbA==',
-            'GPG_KEY_ID'          : 'AES:abQlKbCl6aE5NgVisyu7jg==:/wrZ34d5qiawh14DxK/6JQbw22kPO+k7HNcuFqJOqL8='
+            'MAVEN_NEXUS_PASSWORD': 'AES:U0+58CAsIkycH+6DUL+Z6w==:EoTd+MQsXP8iL64+eDUi226NbEOGM3N6RfYxZeXH6C30X70xcKKuaEuFVLATe92Ht9RDNrMhXbv2lAt/iEoEbA=='
           ]
           jobs {
             job('upload-to-maven') {
               elasticProfileId = 'ecs-gocd-dev-build'
               tasks {
                 bash {
-                  commandString = './gradlew uploadArchives -PmavenUser=${MAVEN_NEXUS_USERNAME} -Psigning.secretKeyRingFile=\'$(readlink -f ../signing-keys/*.gpg)\''
+                  commandString = './gradlew uploadArchives -Psigning.secretKeyRingFile=$(readlink -f ../signing-keys/*.gpg)'
                   workingDir = "plugin-base"
                 }
               }
