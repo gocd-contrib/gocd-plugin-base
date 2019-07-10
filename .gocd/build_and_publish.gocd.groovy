@@ -4,10 +4,6 @@ GoCD.script {
       group = 'plugins'
       labelTemplate = '${COUNT}'
       lockBehavior = 'none'
-      secureEnvironmentVariables = [
-        GPG_KEY_ID         : 'AES:abQlKbCl6aE5NgVisyu7jg==:/wrZ34d5qiawh14DxK/6JQbw22kPO+k7HNcuFqJOqL8=',
-        GOCD_GPG_PASSPHRASE: 'AES:7lAutKoRKMuSnh3Sbg9DeQ==:8fhND9w/8AWw6dJhmWpTcCdKSsEcOzriQNiKFZD6XtN+sJvZ65NH/QFXRNiy192+SSTKsbhOrFmw+kAKt5+MH1Erd6H54zJjpSgvJUmsJaQ='
-      ]
       materials {
         svn('signing-keys') {
           url = "https://github.com/gocd-private/signing-keys/trunk"
@@ -45,17 +41,30 @@ GoCD.script {
           cleanWorkingDir = true
           fetchMaterials = true
           environmentVariables = [
-            'MAVEN_NEXUS_USERNAME': 'arvindsv'
+            GNUPGHOME            : '~/.code-signing-keys',
+            GOCD_GPG_KEYRING_FILE: 'signing-key.gpg',
           ]
           secureEnvironmentVariables = [
-            'MAVEN_NEXUS_PASSWORD': 'AES:U0+58CAsIkycH+6DUL+Z6w==:EoTd+MQsXP8iL64+eDUi226NbEOGM3N6RfYxZeXH6C30X70xcKKuaEuFVLATe92Ht9RDNrMhXbv2lAt/iEoEbA=='
+            GOCD_NEXUS_USERNAME: 'AES:H0l96KkJWnHkWdJPVdha2Q==:XvKyOuun43zh4L+TSpbGvw==',
+            GOCD_NEXUS_PASSWORD: 'AES:r/8x3K1wEReuRZRmm37h/g==:ASQOrYbpwigCPA8GfkQi7NWDzejOTean0v9XwYUcvjPlgWdvR6xnvbwvrAdBE6Rg',
+            GOCD_GPG_PASSPHRASE: 'AES:7lAutKoRKMuSnh3Sbg9DeQ==:8fhND9w/8AWw6dJhmWpTcCdKSsEcOzriQNiKFZD6XtN+sJvZ65NH/QFXRNiy192+SSTKsbhOrFmw+kAKt5+MH1Erd6H54zJjpSgvJUmsJaQ=',
+            GOCD_GPG_KEY_ID    : 'AES:abQlKbCl6aE5NgVisyu7jg==:/wrZ34d5qiawh14DxK/6JQbw22kPO+k7HNcuFqJOqL8='
           ]
           jobs {
             job('upload-to-maven') {
               elasticProfileId = 'ecs-gocd-dev-build'
               tasks {
                 bash {
-                  commandString = './gradlew uploadArchives -Psigning.secretKeyRingFile=$(readlink -f ../signing-keys/*.gpg)'
+                  commandString = 'echo $GOCD_GPG_PASSPHRASE > gpg-passphrase'
+                }
+                bash {
+                  commandString = 'gpg --quiet --batch --passphrase-file gpg-passphrase --output - ../signing-keys/gpg-keys.pem.gpg | gpg --import --batch --quiet'
+                }
+                bash {
+                  commandString = 'gpg --export-secret-keys $GOCD_GPG_KEY_ID > $GOCD_GPG_KEYRING_FILE'
+                }
+                bash {
+                  commandString = './gradlew clean uploadArchives closeAndReleaseRepository'
                   workingDir = "plugin-base"
                 }
               }

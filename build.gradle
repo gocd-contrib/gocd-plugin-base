@@ -20,11 +20,13 @@ buildscript {
   }
   dependencies {
     classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+    classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.20.0"
   }
 }
 
 apply plugin: 'maven-publish'
 apply plugin: 'java'
+apply plugin: "io.codearte.nexus-staging"
 apply plugin: 'com.bmuschko.nexus'
 apply from: "https://raw.githubusercontent.com/gocd/gocd-plugin-gradle-task-helpers/master/test-task-helper.gradle?_=${(int) (new Date().toInstant().epochSecond / 60)}"
 
@@ -37,14 +39,6 @@ description = 'Helper utility to write gocd plugins'
 
 repositories {
   mavenCentral()
-
-  maven {
-    credentials {
-      url "https://repo1.maven.org/maven2/"
-      username System.getenv('MAVEN_NEXUS_USERNAME')
-      password System.getenv('MAVEN_NEXUS_PASSWORD')
-    }
-  }
 }
 
 dependencies {
@@ -69,40 +63,46 @@ test {
 }
 
 extraArchive {
-  sources = false
-  tests = true
-  javadoc = false
+  sources = true
+  tests = false
+  javadoc = true
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-  archiveClassifier = 'sources'
-  from sourceSets.main.allSource
-}
+sourceSets {
+  main.compileClasspath += project.configurations.compileOnly
 
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-  archiveClassifier = 'javadoc'
-  from javadoc.destinationDir
+  examples {
+    compileClasspath += sourceSets.main.output
+    compileClasspath += sourceSets.main.compileClasspath
+  }
 }
 
 publishing {
   publications {
     mavenJava(MavenPublication) {
-      modifyPom
       from components.java
     }
   }
 }
 
 signing {
-  def gpgKey = System.getenv('GPG_KEY_ID')
-  def gpgPassword = System.getenv('GOCD_GPG_PASSPHRASE')
-  if (gpgKey == null || gpgPassword == null) {
-    throw new GradleScriptException('Please set the value of GPG_KEY_ID and GOCD_GPG_PASSPHRASE', null)
-  }
-  project.ext.'signing.keyId' = gpgKey
-  project.ext.'signing.password' = gpgPassword
+  project.ext.'signing.keyId' = System.getenv('GOCD_GPG_KEY_ID')
+  project.ext.'signing.password' = System.getenv('GOCD_GPG_PASSPHRASE')
+  project.ext.'signing.secretKeyRingFile' = System.getenv('GOCD_GPG_KEYRING_FILE')
+  project.ext.nexusUsername = System.getenv('GOCD_NEXUS_USERNAME')
+  project.ext.nexusPassword = System.getenv('GOCD_NEXUS_PASSWORD')
 }
+
+
+nexus {
+  nexusUsername = project.nexusUsername
+  nexusPassword = project.nexusPassword
+}
+
+nexusStaging {
+  packageGroup = 'cd.go'
+}
+
 
 modifyPom {
   project {
