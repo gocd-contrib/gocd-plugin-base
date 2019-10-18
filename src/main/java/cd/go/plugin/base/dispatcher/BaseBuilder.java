@@ -16,6 +16,7 @@
 
 package cd.go.plugin.base.dispatcher;
 
+import cd.go.plugin.base.dispatcher.artifact.ArtifactBaseBuilder;
 import cd.go.plugin.base.dispatcher.authorization.AuthorizationBaseBuilder;
 import cd.go.plugin.base.dispatcher.elastic.ElasticBaseBuilder;
 import cd.go.plugin.base.dispatcher.notification.NotificationBaseBuilder;
@@ -36,5 +37,9 @@ public class BaseBuilder {
 
     public static AuthorizationBaseBuilder forAuthorization() {
         return new AuthorizationBaseBuilder();
+    }
+
+    public static ArtifactBaseBuilder forArtifact() {
+        return new ArtifactBaseBuilder();
     }
 }

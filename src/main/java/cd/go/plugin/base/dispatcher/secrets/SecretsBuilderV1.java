@@ -25,7 +25,7 @@ import cd.go.plugin.base.executors.secrets.LookupExecutor;
 import cd.go.plugin.base.validation.DefaultValidator;
 import cd.go.plugin.base.validation.Validator;
 
-public class SecretsBuilderV1 extends VersionedExtensionBuilder<SecretsBuilderV1> {
+public final class SecretsBuilderV1 extends VersionedExtensionBuilder<SecretsBuilderV1> {
     public static final String REQUEST_GET_ICON = "go.cd.secrets.get-icon";
     public static final String REQUEST_GET_CONFIG_METADATA = "go.cd.secrets.secrets-config.get-metadata";
     protected static final String REQUEST_GET_CONFIG_VIEW = "go.cd.secrets.secrets-config.get-view";
@@ -33,7 +33,7 @@ public class SecretsBuilderV1 extends VersionedExtensionBuilder<SecretsBuilderV1
     protected static final String REQUEST_SECRETS_LOOKUP = "go.cd.secrets.secrets-lookup";
 
     protected SecretsBuilderV1() {
-        registry.put(REQUEST_VALIDATE_CONFIG, new ValidationExecutor());
+        register(REQUEST_VALIDATE_CONFIG, new ValidationExecutor());
     }
 
     public SecretsBuilderV1 icon(String iconPath, String contentType) {
@@ -46,7 +46,8 @@ public class SecretsBuilderV1 extends VersionedExtensionBuilder<SecretsBuilderV1
 
     public SecretsBuilderV1 configMetadata(Class<?> configClass, boolean addDefaultValidators) {
         if (addDefaultValidators) {
-            ((ValidationExecutor) registry.get(REQUEST_VALIDATE_CONFIG)).addAll(new DefaultValidator(configClass));
+            ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_CONFIG))
+                    .addAll(new DefaultValidator(configClass));
         }
         return register(REQUEST_GET_CONFIG_METADATA, new MetadataExecutor(configClass));
     }
@@ -57,8 +58,8 @@ public class SecretsBuilderV1 extends VersionedExtensionBuilder<SecretsBuilderV1
 
 
     public SecretsBuilderV1 validateSecretConfig(Validator... validators) {
-        ((ValidationExecutor) registry.get(REQUEST_VALIDATE_CONFIG)).addAll(validators);
-        return this;
+        ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_CONFIG)).addAll(validators);
+        return self;
     }
 
     public SecretsBuilderV1 lookup(LookupExecutor lookupExecutor) {

@@ -17,20 +17,53 @@
 package cd.go.plugin.base.dispatcher;
 
 import cd.go.plugin.base.executors.Executor;
+import cd.go.plugin.base.executors.IconRequestExecutor;
+import cd.go.plugin.base.executors.ValidationExecutor;
+import cd.go.plugin.base.executors.ViewRequestExecutor;
+import cd.go.plugin.base.validation.Validator;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class VersionedExtensionBuilder<T extends VersionedExtensionBuilder> {
-    protected final Map<String, Executor> registry = new HashMap<>();
+    private final Map<String, Executor> registry = new HashMap<>();
+    protected final T self;
+
+    protected VersionedExtensionBuilder() {
+        self = (T) this;
+    }
 
     public RequestDispatcher build() {
         return new RequestDispatcher(registry, null);
     }
 
-    @SuppressWarnings("unchecked")
+    protected T icon(String requestName, String iconPath, String contentType) {
+        return register(requestName, new IconRequestExecutor(iconPath, contentType));
+    }
+
+    protected Executor getExecutor(String requestName) {
+        return registry.get(requestName);
+    }
+
     protected T register(String requestName, Executor executor) {
         registry.put(requestName, executor);
-        return (T) this;
+        return self;
+    }
+
+    protected T view(String requestName, String viewPath) {
+        return register(requestName, new ViewRequestExecutor(viewPath));
+    }
+
+    protected T validators(String requestName, Validator... validators) {
+        registry.compute(requestName, (reqName, executor) -> {
+            if (executor == null) {
+                return new ValidationExecutor(validators);
+            }
+
+            ((ValidationExecutor) executor).addAll(validators);
+            return executor;
+        });
+
+        return self;
     }
 }

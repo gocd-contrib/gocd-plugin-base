@@ -14,10 +14,16 @@
  * limitations under the License.
  */
 
-package cd.go.plugin.base.dispatcher.secrets;
+package cd.go.plugin.base.executors.artifact;
 
-public final class SecretsBaseBuilder {
-    public SecretsBuilderV1 v1() {
-        return new SecretsBuilderV1();
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@ToString
+@EqualsAndHashCode
+class Capabilities {
+    Capabilities() {
     }
 }

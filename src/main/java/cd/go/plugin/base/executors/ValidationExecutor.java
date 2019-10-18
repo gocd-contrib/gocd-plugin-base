@@ -41,8 +41,6 @@ import static java.util.Collections.emptyMap;
 import static java.util.Optional.ofNullable;
 
 public class ValidationExecutor implements Executor {
-    private static final Type PLUGIN_SETTINGS_TYPE = new TypeToken<Map<String, Map<String, Map<String, String>>>>() {
-    }.getType();
     private static final Type CONFIG_TYPE = new TypeToken<Map<String, String>>() {
     }.getType();
 

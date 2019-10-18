@@ -29,7 +29,7 @@ public final class RequestDispatcher {
     private final Map<String, Executor> dispatcherRegistry;
     private final GoApplicationAccessor accessor;
 
-    public RequestDispatcher(Map<String, Executor> dispatcherRegistry, GoApplicationAccessor accessor) {
+    RequestDispatcher(Map<String, Executor> dispatcherRegistry, GoApplicationAccessor accessor) {
         this.accessor = accessor;
         this.dispatcherRegistry = dispatcherRegistry;
     }

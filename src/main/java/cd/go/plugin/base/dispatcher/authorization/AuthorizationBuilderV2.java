@@ -22,7 +22,7 @@ import cd.go.plugin.base.executors.authorization.CapabilitiesExecutor;
 import cd.go.plugin.base.validation.DefaultValidator;
 import cd.go.plugin.base.validation.Validator;
 
-public class AuthorizationBuilderV2 extends VersionedExtensionBuilder<AuthorizationBuilderV2> {
+public final class AuthorizationBuilderV2 extends VersionedExtensionBuilder<AuthorizationBuilderV2> {
     static final String REQUEST_GET_ICON = "go.cd.authorization.get-icon";
     static final String REQUEST_CAPABILITIES = "go.cd.authorization.get-capabilities";
     static final String REQUEST_GET_USER_ROLES = "go.cd.authorization.get-user-roles";
@@ -39,9 +39,9 @@ public class AuthorizationBuilderV2 extends VersionedExtensionBuilder<Authorizat
     static final String REQUEST_ACCESS_TOKEN = "go.cd.authorization.fetch-access-token";
     static final String REQUEST_AUTHORIZATION_SERVER_URL = "go.cd.authorization.authorization-server-url";
 
-    public AuthorizationBuilderV2() {
-        registry.put(REQUEST_VALIDATE_AUTH_CONFIG, new ValidationExecutor());
-        registry.put(REQUEST_VALIDATE_ROLE_CONFIG, new ValidationExecutor());
+    protected AuthorizationBuilderV2() {
+        register(REQUEST_VALIDATE_AUTH_CONFIG, new ValidationExecutor());
+        register(REQUEST_VALIDATE_ROLE_CONFIG, new ValidationExecutor());
     }
 
     public AuthorizationBuilderV2 icon(String iconPath, String contentType) {
@@ -58,13 +58,13 @@ public class AuthorizationBuilderV2 extends VersionedExtensionBuilder<Authorizat
 
     public AuthorizationBuilderV2 authConfigMetadata(Class<?> authConfigClass, boolean addDefaultValidator) {
         if (addDefaultValidator) {
-            ((ValidationExecutor) registry.get(REQUEST_VALIDATE_AUTH_CONFIG)).addAll(new DefaultValidator(authConfigClass));
+            ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_AUTH_CONFIG)).addAll(new DefaultValidator(authConfigClass));
         }
         return register(REQUEST_GET_AUTH_CONFIG_METADATA, new MetadataExecutor(authConfigClass));
     }
 
     public AuthorizationBuilderV2 validateAuthConfig(Validator... validators) {
-        ((ValidationExecutor) registry.get(REQUEST_VALIDATE_AUTH_CONFIG)).addAll(validators);
+        ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_AUTH_CONFIG)).addAll(validators);
         return this;
     }
 
@@ -75,13 +75,13 @@ public class AuthorizationBuilderV2 extends VersionedExtensionBuilder<Authorizat
 
     public AuthorizationBuilderV2 roleConfigMetadata(Class<?> roleConfigClass, boolean addDefaultValidator) {
         if (addDefaultValidator) {
-            ((ValidationExecutor) registry.get(REQUEST_VALIDATE_ROLE_CONFIG)).addAll(new DefaultValidator(roleConfigClass));
+            ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_ROLE_CONFIG)).addAll(new DefaultValidator(roleConfigClass));
         }
         return register(REQUEST_GET_ROLE_CONFIG_METADATA, new MetadataExecutor(roleConfigClass));
     }
 
     public AuthorizationBuilderV2 validateRoleConfig(Validator... validators) {
-        ((ValidationExecutor) registry.get(REQUEST_VALIDATE_ROLE_CONFIG)).addAll(validators);
+        ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_ROLE_CONFIG)).addAll(validators);
         return this;
     }
 

@@ -30,7 +30,7 @@ import static com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Stream.of;
 
-public class NotificationBuilderV4 extends VersionedExtensionBuilder<NotificationBuilderV4> {
+public final class NotificationBuilderV4 extends VersionedExtensionBuilder<NotificationBuilderV4> {
     protected static final String REQUEST_NOTIFY_PLUGIN_SETTINGS_CHANGE = "go.plugin-settings.plugin-settings-changed";
     protected static final String REQUEST_GET_PLUGIN_SETTINGS_METADATA = "go.plugin-settings.get-configuration";
     protected static final String REQUEST_GET_PLUGIN_SETTINGS_VIEW = "go.plugin-settings.get-view";
@@ -40,8 +40,8 @@ public class NotificationBuilderV4 extends VersionedExtensionBuilder<Notificatio
     public static final String REQUEST_STAGE_STATUS = "stage-status";
     public static final String REQUEST_AGENT_STATUS = "agent-status";
 
-    public NotificationBuilderV4() {
-        registry.put(REQUEST_VALIDATE_PLUGIN_SETTINGS, new ValidationExecutor(true));
+    protected NotificationBuilderV4() {
+        register(REQUEST_VALIDATE_PLUGIN_SETTINGS, new ValidationExecutor(true));
     }
 
     public NotificationBuilderV4 pluginSettings(Class<?> notificationConfigClass) {
@@ -50,7 +50,7 @@ public class NotificationBuilderV4 extends VersionedExtensionBuilder<Notificatio
 
     public NotificationBuilderV4 pluginSettings(Class<?> notificationConfigClass, boolean addDefaultValidation) {
         if (addDefaultValidation) {
-            ((ValidationExecutor) registry.get(REQUEST_VALIDATE_PLUGIN_SETTINGS)).addAll(new DefaultValidator(notificationConfigClass));
+            ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_PLUGIN_SETTINGS)).addAll(new DefaultValidator(notificationConfigClass));
         }
         return register(REQUEST_GET_PLUGIN_SETTINGS_METADATA, new MetadataExecutor(notificationConfigClass));
     }
@@ -60,7 +60,7 @@ public class NotificationBuilderV4 extends VersionedExtensionBuilder<Notificatio
     }
 
     public NotificationBuilderV4 validatePluginSettings(Validator... validators) {
-        ((ValidationExecutor) registry.get(REQUEST_VALIDATE_PLUGIN_SETTINGS)).addAll(validators);
+        ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_PLUGIN_SETTINGS)).addAll(validators);
         return this;
     }
 

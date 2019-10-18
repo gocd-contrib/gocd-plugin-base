@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cd.go.plugin.base.dispatcher.secrets;
+package cd.go.plugin.base.dispatcher.artifact;
 
-public final class SecretsBaseBuilder {
-    public SecretsBuilderV1 v1() {
-        return new SecretsBuilderV1();
+public class ArtifactBaseBuilder {
+    public ArtifactBuilderV2 v2() {
+        return new ArtifactBuilderV2();
     }
 }

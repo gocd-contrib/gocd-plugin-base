@@ -14,10 +14,23 @@
  * limitations under the License.
  */
 
-package cd.go.plugin.base.dispatcher.secrets;
+package cd.go.plugin.base.executors.artifact;
 
-public final class SecretsBaseBuilder {
-    public SecretsBuilderV1 v1() {
-        return new SecretsBuilderV1();
-    }
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@ToString
+@EqualsAndHashCode
+public class ArtifactStore<CONFIGURATION> {
+    @Expose
+    @SerializedName("id")
+    private String id;
+
+    @Expose
+    @SerializedName("configuration")
+    private CONFIGURATION configuration;
 }

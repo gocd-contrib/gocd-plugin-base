@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
-package cd.go.plugin.base.dispatcher.secrets;
+package cd.go.plugin.base.dispatcher.artifact;
 
-public final class SecretsBaseBuilder {
-    public SecretsBuilderV1 v1() {
-        return new SecretsBuilderV1();
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class ArtifactBaseBuilderTest {
+    @Test
+    void shouldSupportV1OfTheExtension() {
+        assertThat(new ArtifactBaseBuilder().v2())
+                .isNotNull()
+                .isInstanceOf(ArtifactBuilderV2.class);
     }
 }
