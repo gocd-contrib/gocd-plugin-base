@@ -20,11 +20,10 @@ import cd.go.plugin.base.dispatcher.artifact.ArtifactBaseBuilder;
 import cd.go.plugin.base.dispatcher.authorization.AuthorizationBaseBuilder;
 import cd.go.plugin.base.dispatcher.elastic.ElasticBaseBuilder;
 import cd.go.plugin.base.dispatcher.notification.NotificationBaseBuilder;
+import cd.go.plugin.base.dispatcher.scm.ScmBaseBuilder;
 import cd.go.plugin.base.dispatcher.secrets.SecretsBaseBuilder;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BaseBuilderTest {
@@ -61,5 +60,12 @@ class BaseBuilderTest {
         assertThat(BaseBuilder.forArtifact())
                 .isNotNull()
                 .isInstanceOf(ArtifactBaseBuilder.class);
+    }
+
+    @Test
+    void shouldReturnBaseBuilderForScm() {
+        assertThat(BaseBuilder.forScm())
+                .isNotNull()
+                .isInstanceOf(ScmBaseBuilder.class);
     }
 }

@@ -73,7 +73,12 @@ public class NotificationPlugin implements GoPlugin {
 
     @Override
     public GoPluginApiResponse handle(GoPluginApiRequest request) throws UnhandledRequestTypeException {
-        return dispatcher.dispatch(request);
+        try {
+            return dispatcher.dispatch(request);
+        } catch (Exception e) {
+            //handle it properly
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

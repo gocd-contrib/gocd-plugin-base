@@ -50,7 +50,7 @@ class AuthorizationBuilderV2Test {
     }
 
     @Test
-    void shouldSupportGetIconCall() throws UnhandledRequestTypeException {
+    void shouldSupportGetIconCall() throws Exception {
         when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_GET_ICON);
         final RequestDispatcher dispatcher = authorizationBuilderV2
                 .icon("/gocd.png", "image/png")
@@ -63,7 +63,7 @@ class AuthorizationBuilderV2Test {
 
     @ParameterizedTest
     @JsonSource(jsonFiles = "/authorization/capabilities.json")
-    void shouldSupportGetCapabilitiesCall(String expectedResponse) throws UnhandledRequestTypeException, JSONException {
+    void shouldSupportGetCapabilitiesCall(String expectedResponse) throws Exception {
         when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_CAPABILITIES);
         final RequestDispatcher dispatcher = authorizationBuilderV2
                 .capabilities(SupportedAuthType.Password, false, false, true)
@@ -78,7 +78,7 @@ class AuthorizationBuilderV2Test {
     @Nested
     class AuthConfig {
         @Test
-        void shouldSupportValidateCall() throws UnhandledRequestTypeException {
+        void shouldSupportValidateCall() throws Exception {
             when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_VALIDATE_AUTH_CONFIG);
             final Validator validator = mock(Validator.class);
             when(validator.validate(any())).thenReturn(new ValidationResult());
@@ -94,7 +94,7 @@ class AuthorizationBuilderV2Test {
         }
 
         @Test
-        void shouldSupportMetadata() throws UnhandledRequestTypeException {
+        void shouldSupportMetadata() throws Exception {
             when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_GET_AUTH_CONFIG_METADATA);
             final RequestDispatcher dispatcher = new AuthorizationBuilderV2()
                     .authConfigMetadata(DummyAuthConfig.class)
@@ -107,7 +107,7 @@ class AuthorizationBuilderV2Test {
 
 
         @Test
-        void shouldSupportGetViewCall() throws UnhandledRequestTypeException {
+        void shouldSupportGetViewCall() throws Exception {
             when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_GET_AUTH_CONFIG_VIEW);
             final RequestDispatcher dispatcher = new AuthorizationBuilderV2()
                     .authConfigView("/dummy-template.html")
@@ -126,7 +126,7 @@ class AuthorizationBuilderV2Test {
     @Nested
     class RoleConfig {
         @Test
-        void shouldSupportValidateCall() throws UnhandledRequestTypeException {
+        void shouldSupportValidateCall() throws Exception {
             when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_VALIDATE_ROLE_CONFIG);
             final Validator validator = mock(Validator.class);
             when(validator.validate(any())).thenReturn(new ValidationResult());
@@ -142,7 +142,7 @@ class AuthorizationBuilderV2Test {
         }
 
         @Test
-        void shouldSupportMetadata() throws UnhandledRequestTypeException {
+        void shouldSupportMetadata() throws Exception {
             when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_GET_ROLE_CONFIG_METADATA);
             final RequestDispatcher dispatcher = new AuthorizationBuilderV2()
                     .roleConfigMetadata(DummyRoleConfig.class)
@@ -154,7 +154,7 @@ class AuthorizationBuilderV2Test {
         }
 
         @Test
-        void shouldSupportGetViewCall() throws UnhandledRequestTypeException {
+        void shouldSupportGetViewCall() throws Exception {
             when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_GET_ROLE_CONFIG_VIEW);
             final RequestDispatcher dispatcher = new AuthorizationBuilderV2()
                     .roleConfigView("/dummy-template.html")
@@ -172,7 +172,7 @@ class AuthorizationBuilderV2Test {
 
 
     @Test
-    void shouldSupportGetUserCall() throws UnhandledRequestTypeException {
+    void shouldSupportGetUserCall() throws Exception {
         when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_GET_USER_ROLES);
         when(request.requestBody()).thenReturn("get-role");
 
@@ -187,7 +187,7 @@ class AuthorizationBuilderV2Test {
     }
 
     @Test
-    void shouldSupportIsValidUserCall() throws UnhandledRequestTypeException {
+    void shouldSupportIsValidUserCall() throws Exception {
         when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_IS_VALID_USER);
         when(request.requestBody()).thenReturn("validate-user");
 
@@ -202,7 +202,7 @@ class AuthorizationBuilderV2Test {
     }
 
     @Test
-    void shouldSupportAuthenticateCall() throws UnhandledRequestTypeException {
+    void shouldSupportAuthenticateCall() throws Exception {
         when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_AUTHENTICATE_USER);
         when(request.requestBody()).thenReturn("authenticate-user");
 
@@ -217,7 +217,7 @@ class AuthorizationBuilderV2Test {
     }
 
     @Test
-    void shouldSupportSearchUserCall() throws UnhandledRequestTypeException {
+    void shouldSupportSearchUserCall() throws Exception {
         when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_SEARCH_USERS);
         when(request.requestBody()).thenReturn("search-user");
 
@@ -232,7 +232,7 @@ class AuthorizationBuilderV2Test {
     }
 
     @Test
-    void shouldSupportGetAccessTokenCall() throws UnhandledRequestTypeException {
+    void shouldSupportGetAccessTokenCall() throws Exception {
         when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_ACCESS_TOKEN);
         when(request.requestBody()).thenReturn("access-token");
 
@@ -247,7 +247,7 @@ class AuthorizationBuilderV2Test {
     }
 
     @Test
-    void shouldSupportAuthorizationUrlCall() throws UnhandledRequestTypeException {
+    void shouldSupportAuthorizationUrlCall() throws Exception {
         when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_AUTHORIZATION_SERVER_URL);
         when(request.requestBody()).thenReturn("authorization-server-url");
 
@@ -262,7 +262,7 @@ class AuthorizationBuilderV2Test {
     }
 
     @Test
-    void shouldSupportVerifyConnectionCall() throws UnhandledRequestTypeException {
+    void shouldSupportVerifyConnectionCall() throws Exception {
         when(request.requestName()).thenReturn(AuthorizationBuilderV2.REQUEST_VERIFY_CONNECTION);
         when(request.requestBody()).thenReturn("verify-connection");
 

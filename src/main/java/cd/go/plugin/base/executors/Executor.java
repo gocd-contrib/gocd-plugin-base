@@ -16,19 +16,9 @@
 
 package cd.go.plugin.base.executors;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
 public interface Executor {
-    Logger LOGGER = Logger.getLoggerFor(Executor.class);
-
-    Gson GSON = new GsonBuilder()
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES)
-            .create();
-
-    GoPluginApiResponse execute(GoPluginApiRequest request);
+    GoPluginApiResponse execute(GoPluginApiRequest request) throws Exception;
 }

@@ -1,0 +1,13 @@
+{
+  "not-scm-configuration-or-plugin-settings": {
+    "SCM_URL": {
+      "value": "http://localhost.com"
+    },
+    "USERNAME": {
+      "value": "user"
+    },
+    "PASSWORD": {
+      "value": "password"
+    }
+  }
+}

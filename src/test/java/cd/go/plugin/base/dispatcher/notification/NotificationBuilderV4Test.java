@@ -54,7 +54,7 @@ class NotificationBuilderV4Test {
     }
 
     @Test
-    void shouldSupportGetPluginSettingsMetadata() throws UnhandledRequestTypeException {
+    void shouldSupportGetPluginSettingsMetadata() throws Exception {
         when(request.requestName()).thenReturn(NotificationBuilderV4.REQUEST_GET_PLUGIN_SETTINGS_METADATA);
         RequestDispatcher requestDispatcher = new NotificationBuilderV4()
                 .pluginSettings(NotificationConfig.class)
@@ -66,7 +66,7 @@ class NotificationBuilderV4Test {
     }
 
     @Test
-    void shouldAddDefaultValidator() throws UnhandledRequestTypeException {
+    void shouldAddDefaultValidator() throws Exception {
         when(request.requestName()).thenReturn(NotificationBuilderV4.REQUEST_VALIDATE_PLUGIN_SETTINGS);
         when(request.requestBody()).thenReturn("{\"plugin-settings\":{\"key-one\":{\"value\":\"value-one\"},\"key-two\":{\"value\":\"value-two\"}}}");
         RequestDispatcher requestDispatcher = new NotificationBuilderV4()
@@ -83,7 +83,7 @@ class NotificationBuilderV4Test {
     }
 
     @Test
-    void shouldNotAddDefaultValidator() throws UnhandledRequestTypeException {
+    void shouldNotAddDefaultValidator() throws Exception {
         when(request.requestName()).thenReturn(NotificationBuilderV4.REQUEST_VALIDATE_PLUGIN_SETTINGS);
         when(request.requestBody()).thenReturn("{\"key\":\"value\"}");
         RequestDispatcher requestDispatcher = new NotificationBuilderV4()
@@ -101,7 +101,7 @@ class NotificationBuilderV4Test {
     }
 
     @Test
-    void shouldSupportGetPluginSettingsView() throws UnhandledRequestTypeException {
+    void shouldSupportGetPluginSettingsView() throws Exception {
         when(request.requestName()).thenReturn(NotificationBuilderV4.REQUEST_GET_PLUGIN_SETTINGS_VIEW);
         RequestDispatcher requestDispatcher = new NotificationBuilderV4()
                 .pluginSettingsView("/dummy-template.html")
@@ -112,7 +112,7 @@ class NotificationBuilderV4Test {
     }
 
     @Test
-    void shouldSupportValidatePluginSettings() throws UnhandledRequestTypeException {
+    void shouldSupportValidatePluginSettings() throws Exception {
         when(request.requestName()).thenReturn(NotificationBuilderV4.REQUEST_VALIDATE_PLUGIN_SETTINGS);
         when(request.requestBody()).thenReturn("{\"plugin-settings\":{\"key-one\":{\"value\":\"value-one\"},\"key-two\":{\"value\":\"value-two\"}}}");
         Validator validator = mock(Validator.class);
@@ -136,7 +136,7 @@ class NotificationBuilderV4Test {
         }
 
         @Test
-        void shouldSupportNotificationInterestedIn() throws UnhandledRequestTypeException {
+        void shouldSupportNotificationInterestedIn() throws Exception {
             RequestDispatcher requestDispatcher = new NotificationBuilderV4()
                     .notificationInterestedIn(NotificationType.AGENT_STATUS)
                     .build();
@@ -156,7 +156,7 @@ class NotificationBuilderV4Test {
     }
 
     @Test
-    void shouldSupportStageStatusNotificationExecutor() throws UnhandledRequestTypeException {
+    void shouldSupportStageStatusNotificationExecutor() throws Exception {
         when(request.requestName()).thenReturn(NotificationBuilderV4.REQUEST_STAGE_STATUS);
         when(request.requestBody()).thenReturn("{}");
         RequestDispatcher requestDispatcher = new NotificationBuilderV4()
@@ -175,7 +175,7 @@ class NotificationBuilderV4Test {
     }
 
     @Test
-    void shouldSupportAgentStatusNotificationExecutor() throws UnhandledRequestTypeException {
+    void shouldSupportAgentStatusNotificationExecutor() throws Exception {
         when(request.requestName()).thenReturn(NotificationBuilderV4.REQUEST_AGENT_STATUS);
         when(request.requestBody()).thenReturn("{}");
         RequestDispatcher requestDispatcher = new NotificationBuilderV4()

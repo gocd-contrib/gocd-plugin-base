@@ -18,12 +18,15 @@ package cd.go.plugin.base;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.Map;
 
 public class GsonTransformer {
     private static final Gson GSON = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             .create();
 
     public static <T> T fromJson(String json, Class<T> type) {
@@ -36,5 +39,11 @@ public class GsonTransformer {
 
     public static String toJson(Object object) {
         return GSON.toJson(object);
+    }
+
+    public static Map<String, Object> asMap(String json) {
+        Type type = new TypeToken<Map<String, Object>>() {
+        }.getType();
+        return GSON.fromJson(json, type);
     }
 }

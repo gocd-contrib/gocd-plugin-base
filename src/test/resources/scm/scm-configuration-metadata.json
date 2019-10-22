@@ -1,0 +1,23 @@
+{
+  "SCM_URL": {
+    "part-of-identity": true,
+    "required": true,
+    "secure": false,
+    "display-name": "SCM URL",
+    "display-order": "0"
+  },
+  "USERNAME": {
+    "part-of-identity": false,
+    "required": false,
+    "secure": false,
+    "display-name": "Username",
+    "display-order": "1"
+  },
+  "PASSWORD": {
+    "part-of-identity": false,
+    "required": false,
+    "secure": true,
+    "display-name": "Password",
+    "display-order": "2"
+  }
+}

@@ -18,13 +18,20 @@ package cd.go.plugin.base.metadata;
 
 import cd.go.plugin.base.annotations.Property;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-import java.util.Objects;
-
+@Getter
+@ToString
+@EqualsAndHashCode
 public class MetadataHolder {
     @Expose
+    @SerializedName("key")
     private String key;
     @Expose
+    @SerializedName("metadata")
     private Metadata metadata;
 
     MetadataHolder(Property property) {
@@ -34,27 +41,5 @@ public class MetadataHolder {
     public MetadataHolder(String name, String displayName, boolean required, boolean secure) {
         this.key = name;
         this.metadata = new Metadata(displayName, required, secure);
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public Metadata getMetadata() {
-        return metadata;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MetadataHolder)) return false;
-        MetadataHolder that = (MetadataHolder) o;
-        return Objects.equals(key, that.key) &&
-                Objects.equals(metadata, that.metadata);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(key, metadata);
     }
 }

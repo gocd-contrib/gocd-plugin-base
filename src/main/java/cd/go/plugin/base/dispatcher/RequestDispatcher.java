@@ -35,10 +35,13 @@ public final class RequestDispatcher {
     }
 
 
-    public final GoPluginApiResponse dispatch(GoPluginApiRequest request) throws UnhandledRequestTypeException {
+    public final GoPluginApiResponse dispatch(GoPluginApiRequest request) throws Exception {
         final Optional<Executor> executorOptional = Optional.ofNullable(dispatcherRegistry.get(request.requestName()));
 
-        return executorOptional.map(executor -> executor.execute(request))
-                .orElseThrow(() -> new UnhandledRequestTypeException(request.requestName()));
+        if (executorOptional.isPresent()) {
+            return executorOptional.get().execute(request);
+        }
+
+        throw new UnhandledRequestTypeException(request.requestName());
     }
 }

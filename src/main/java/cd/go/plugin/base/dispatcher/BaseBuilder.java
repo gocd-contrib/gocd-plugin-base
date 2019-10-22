@@ -20,6 +20,7 @@ import cd.go.plugin.base.dispatcher.artifact.ArtifactBaseBuilder;
 import cd.go.plugin.base.dispatcher.authorization.AuthorizationBaseBuilder;
 import cd.go.plugin.base.dispatcher.elastic.ElasticBaseBuilder;
 import cd.go.plugin.base.dispatcher.notification.NotificationBaseBuilder;
+import cd.go.plugin.base.dispatcher.scm.ScmBaseBuilder;
 import cd.go.plugin.base.dispatcher.secrets.SecretsBaseBuilder;
 
 public class BaseBuilder {
@@ -41,5 +42,9 @@ public class BaseBuilder {
 
     public static ArtifactBaseBuilder forArtifact() {
         return new ArtifactBaseBuilder();
+    }
+
+    public static ScmBaseBuilder forScm() {
+        return new ScmBaseBuilder();
     }
 }

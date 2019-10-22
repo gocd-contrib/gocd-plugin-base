@@ -54,7 +54,7 @@ class ArtifactBuilderV1Test {
     }
 
     @Test
-    void shouldSupportGetIconCall() throws UnhandledRequestTypeException {
+    void shouldSupportGetIconCall() throws Exception {
         when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_GET_ICON);
         final RequestDispatcher dispatcher = new ArtifactBuilderV2()
                 .icon("/gocd.png", "image/png")
@@ -68,7 +68,7 @@ class ArtifactBuilderV1Test {
     @Nested
     class ArtifactStore {
         @Test
-        void shouldSupportGetMetadata() throws UnhandledRequestTypeException {
+        void shouldSupportGetMetadata() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_ARTIFACT_STORE_METADATA);
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
                     .artifactStoreConfig(DummyArtifactStore.class, "/dummy-template.html")
@@ -80,7 +80,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldSupportGetView() throws UnhandledRequestTypeException {
+        void shouldSupportGetView() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_ARTIFACT_STORE_VIEW);
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
                     .artifactStoreConfig(DummyArtifactStore.class, "/dummy-template.html")
@@ -92,7 +92,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldSupportValidate() throws UnhandledRequestTypeException {
+        void shouldSupportValidate() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_ARTIFACT_STORE_VALIDATE);
             final Validator validator = mock(Validator.class);
             when(validator.validate(any())).thenReturn(new ValidationResult());
@@ -108,7 +108,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldValidateUsingDefaultValidatorIfNoneConfigured() throws UnhandledRequestTypeException, JSONException {
+        void shouldValidateUsingDefaultValidatorIfNoneConfigured() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_ARTIFACT_STORE_VALIDATE);
 
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
@@ -126,7 +126,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldNotPerformDefaultValidationWhenExplicitlySetToFalse() throws UnhandledRequestTypeException, JSONException {
+        void shouldNotPerformDefaultValidationWhenExplicitlySetToFalse() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_ARTIFACT_STORE_VALIDATE);
 
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
@@ -144,7 +144,7 @@ class ArtifactBuilderV1Test {
     @Nested
     class PublishArtifact {
         @Test
-        void shouldSupportGetMetadata() throws UnhandledRequestTypeException {
+        void shouldSupportGetMetadata() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_PUBLISH_ARTIFACT_METADATA);
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
                     .publishArtifactConfig(PublishArtifactConfig.class, "/dummy-template.html")
@@ -156,7 +156,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldSupportGetView() throws UnhandledRequestTypeException {
+        void shouldSupportGetView() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_PUBLISH_ARTIFACT_VIEW);
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
                     .publishArtifactConfig(PublishArtifactConfig.class, "/dummy-template.html")
@@ -168,7 +168,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldSupportValidate() throws UnhandledRequestTypeException {
+        void shouldSupportValidate() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_PUBLISH_ARTIFACT_VALIDATE);
             final Validator validator = mock(Validator.class);
             when(validator.validate(any())).thenReturn(new ValidationResult());
@@ -184,7 +184,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldValidateUsingDefaultValidatorIfNoneConfigured() throws UnhandledRequestTypeException, JSONException {
+        void shouldValidateUsingDefaultValidatorIfNoneConfigured() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_PUBLISH_ARTIFACT_VALIDATE);
 
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
@@ -202,7 +202,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldNotPerformDefaultValidationWhenExplicitlySetToFalse() throws UnhandledRequestTypeException, JSONException {
+        void shouldNotPerformDefaultValidationWhenExplicitlySetToFalse() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_PUBLISH_ARTIFACT_VALIDATE);
 
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
@@ -220,7 +220,7 @@ class ArtifactBuilderV1Test {
     @Nested
     class FetchArtifact {
         @Test
-        void shouldSupportGetMetadata() throws UnhandledRequestTypeException {
+        void shouldSupportGetMetadata() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_FETCH_ARTIFACT_METADATA);
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
                     .fetchArtifactConfig(FetchArtifactConfig.class, "/dummy-template.html")
@@ -232,7 +232,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldSupportGetView() throws UnhandledRequestTypeException {
+        void shouldSupportGetView() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_FETCH_ARTIFACT_VIEW);
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
                     .fetchArtifactConfig(FetchArtifactConfig.class, "/dummy-template.html")
@@ -244,7 +244,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldSupportValidate() throws UnhandledRequestTypeException {
+        void shouldSupportValidate() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_FETCH_ARTIFACT_VALIDATE);
             final Validator validator = mock(Validator.class);
             when(validator.validate(any())).thenReturn(new ValidationResult());
@@ -260,7 +260,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldValidateUsingDefaultValidatorIfNoneConfigured() throws UnhandledRequestTypeException, JSONException {
+        void shouldValidateUsingDefaultValidatorIfNoneConfigured() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_FETCH_ARTIFACT_VALIDATE);
 
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
@@ -278,7 +278,7 @@ class ArtifactBuilderV1Test {
         }
 
         @Test
-        void shouldNotPerformDefaultValidationWhenExplicitlySetToFalse() throws UnhandledRequestTypeException, JSONException {
+        void shouldNotPerformDefaultValidationWhenExplicitlySetToFalse() throws Exception {
             when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_FETCH_ARTIFACT_VALIDATE);
 
             final RequestDispatcher dispatcher = new ArtifactBuilderV2()
@@ -295,7 +295,7 @@ class ArtifactBuilderV1Test {
 
     @ParameterizedTest
     @JsonSource(jsonFiles = "/artifact/publish-artifact-request.json")
-    void shouldSupportPublishArtifact(String inputJSON) throws UnhandledRequestTypeException {
+    void shouldSupportPublishArtifact(String inputJSON) throws Exception {
         when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_PUBLISH_ARTIFACT);
         when(request.requestBody()).thenReturn(inputJSON);
 
@@ -311,7 +311,7 @@ class ArtifactBuilderV1Test {
 
     @ParameterizedTest
     @JsonSource(jsonFiles = "/artifact/fetch-artifact-request.json")
-    void shouldSupportFetchArtifact(String inputJSON) throws UnhandledRequestTypeException {
+    void shouldSupportFetchArtifact(String inputJSON) throws Exception {
         when(request.requestName()).thenReturn(ArtifactBuilderV2.REQUEST_FETCH_ARTIFACT);
         when(request.requestBody()).thenReturn(inputJSON);
 

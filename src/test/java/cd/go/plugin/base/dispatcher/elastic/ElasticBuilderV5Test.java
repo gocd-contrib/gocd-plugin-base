@@ -46,7 +46,7 @@ class ElasticBuilderV5Test {
     }
 
     @Test
-    void shouldSupportGetIconCall() throws UnhandledRequestTypeException {
+    void shouldSupportGetIconCall() throws Exception {
         when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_GET_ICON);
         final RequestDispatcher dispatcher = new ElasticBuilderV5()
                 .icon("/gocd.png", "image/png")
@@ -58,7 +58,7 @@ class ElasticBuilderV5Test {
     }
 
     @Test
-    void shouldSupportGetCapabilitiesCall() throws UnhandledRequestTypeException, JSONException {
+    void shouldSupportGetCapabilitiesCall() throws Exception {
         when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_CAPABILITIES);
         final RequestDispatcher dispatcher = new ElasticBuilderV5()
                 .capabilities(false, false, true)
@@ -78,7 +78,7 @@ class ElasticBuilderV5Test {
     @Nested
     class ClusterProfile {
         @Test
-        void shouldSupportMetadata() throws UnhandledRequestTypeException {
+        void shouldSupportMetadata() throws Exception {
             when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_GET_CLUSTER_PROFILE_METADATA);
             final RequestDispatcher dispatcher = new ElasticBuilderV5()
                     .clusterProfileMetadata(ClusterProfileConfig.class)
@@ -90,7 +90,7 @@ class ElasticBuilderV5Test {
         }
 
         @Test
-        void shouldSupportView() throws UnhandledRequestTypeException {
+        void shouldSupportView() throws Exception {
             when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_GET_CLUSTER_PROFILE_VIEW);
             final RequestDispatcher dispatcher = new ElasticBuilderV5()
                     .clusterProfileView("/dummy-template.html")
@@ -108,7 +108,7 @@ class ElasticBuilderV5Test {
     @Nested
     class ElasticAgentProfile {
         @Test
-        void shouldSupportMetadata() throws UnhandledRequestTypeException {
+        void shouldSupportMetadata() throws Exception {
             when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_GET_ELASTIC_AGENT_PROFILE_METADATA);
             final RequestDispatcher dispatcher = new ElasticBuilderV5()
                     .elasticProfileMetadata(ElasticAgentProfileConfig.class)
@@ -120,7 +120,7 @@ class ElasticBuilderV5Test {
         }
 
         @Test
-        void shouldSupportView() throws UnhandledRequestTypeException {
+        void shouldSupportView() throws Exception {
             when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_GET_ELASTIC_AGENT_PROFILE_VIEW);
             final RequestDispatcher dispatcher = new ElasticBuilderV5()
                     .elasticProfileView("/dummy-template.html")
@@ -136,7 +136,7 @@ class ElasticBuilderV5Test {
     }
 
     @Test
-    void shouldSupportCreateAgent() throws UnhandledRequestTypeException {
+    void shouldSupportCreateAgent() throws Exception {
         when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_CREATE_AGENT);
         when(request.requestBody()).thenReturn("create agent");
 
@@ -151,7 +151,7 @@ class ElasticBuilderV5Test {
     }
 
     @Test
-    void shouldSupportServerPing() throws UnhandledRequestTypeException {
+    void shouldSupportServerPing() throws Exception {
         when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_SERVER_PING);
         when(request.requestBody()).thenReturn("server ping");
         final RequestDispatcher dispatcher = new ElasticBuilderV5()
@@ -165,7 +165,7 @@ class ElasticBuilderV5Test {
     }
 
     @Test
-    void shouldSupportShouldAssignWork() throws UnhandledRequestTypeException {
+    void shouldSupportShouldAssignWork() throws Exception {
         when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_SHOULD_ASSIGN_WORK);
         when(request.requestBody()).thenReturn("assign work");
         final RequestDispatcher dispatcher = new ElasticBuilderV5()
@@ -182,7 +182,7 @@ class ElasticBuilderV5Test {
     @Nested
     class StatusReports {
         @Test
-        void shouldSupportPluginStatusReport() throws UnhandledRequestTypeException {
+        void shouldSupportPluginStatusReport() throws Exception {
             when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_PLUGIN_STATUS_REPORT);
             when(request.requestBody()).thenReturn("plugin status report");
             final RequestDispatcher dispatcher = new ElasticBuilderV5()
@@ -196,7 +196,7 @@ class ElasticBuilderV5Test {
         }
 
         @Test
-        void shouldSupportClusterStatusReport() throws UnhandledRequestTypeException {
+        void shouldSupportClusterStatusReport() throws Exception {
             when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_CLUSTER_STATUS_REPORT);
             when(request.requestBody()).thenReturn("cluster status report");
             final RequestDispatcher dispatcher = new ElasticBuilderV5()
@@ -210,7 +210,7 @@ class ElasticBuilderV5Test {
         }
 
         @Test
-        void shouldSupportAgentStatusReport() throws UnhandledRequestTypeException {
+        void shouldSupportAgentStatusReport() throws Exception {
             when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_AGENT_STATUS_REPORT);
             when(request.requestBody()).thenReturn("agent status report");
             final RequestDispatcher dispatcher = new ElasticBuilderV5()
@@ -225,7 +225,7 @@ class ElasticBuilderV5Test {
     }
 
     @Test
-    void shouldSupportJobCompletion() throws UnhandledRequestTypeException {
+    void shouldSupportJobCompletion() throws Exception {
         when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_JOB_COMPLETION);
         when(request.requestBody()).thenReturn("job completion");
         final RequestDispatcher dispatcher = new ElasticBuilderV5()
@@ -239,7 +239,7 @@ class ElasticBuilderV5Test {
     }
 
     @Test
-    void shouldSupportMigrateConfiguration() throws UnhandledRequestTypeException {
+    void shouldSupportMigrateConfiguration() throws Exception {
         when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_MIGRATE_CONFIGURATION);
         when(request.requestBody()).thenReturn("migrate config");
         final RequestDispatcher dispatcher = new ElasticBuilderV5()
@@ -253,7 +253,7 @@ class ElasticBuilderV5Test {
     }
 
     @Test
-    void shouldSupportClusterConfigChanged() throws UnhandledRequestTypeException {
+    void shouldSupportClusterConfigChanged() throws Exception {
         when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_CLUSTER_PROFILE_CHANGED);
         when(request.requestBody()).thenReturn("cluster profile changed");
         final RequestDispatcher dispatcher = new ElasticBuilderV5()
@@ -267,7 +267,7 @@ class ElasticBuilderV5Test {
     }
 
     @Test
-    void shouldSupportValidateClusterProfile() throws UnhandledRequestTypeException {
+    void shouldSupportValidateClusterProfile() throws Exception {
         when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_VALIDATE_CLUSTER_PROFILE);
         final Validator validator = mock(Validator.class);
         when(validator.validate(any())).thenReturn(new ValidationResult());
@@ -283,7 +283,7 @@ class ElasticBuilderV5Test {
     }
 
     @Test
-    void shouldSupportValidateElasticAgentProfile() throws UnhandledRequestTypeException {
+    void shouldSupportValidateElasticAgentProfile() throws Exception {
         when(request.requestName()).thenReturn(ElasticBuilderV5.REQUEST_VALIDATE_ELASTIC_AGENT_PROFILE);
         final Validator validator = mock(Validator.class);
         when(validator.validate(any())).thenReturn(new ValidationResult());

@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ArtifactBaseBuilderTest {
     @Test
-    void shouldSupportV1OfTheExtension() {
+    void shouldSupportV2OfTheExtension() {
         assertThat(new ArtifactBaseBuilder().v2())
                 .isNotNull()
                 .isInstanceOf(ArtifactBuilderV2.class);

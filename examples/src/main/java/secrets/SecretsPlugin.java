@@ -54,7 +54,12 @@ public class SecretsPlugin implements GoPlugin {
 
     @Override
     public GoPluginApiResponse handle(GoPluginApiRequest request) throws UnhandledRequestTypeException {
-        return requestDispatcher.dispatch(request); // use previously built request dispatcher to handle server requests
+        try {
+            return requestDispatcher.dispatch(request); // use previously built request dispatcher to handle server requests
+        } catch (Exception e) {
+            //Handle it
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

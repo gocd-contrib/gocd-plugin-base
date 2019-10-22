@@ -16,6 +16,7 @@
 
 package cd.go.plugin.base.executors;
 
+import cd.go.plugin.base.GsonTransformer;
 import cd.go.plugin.base.ResourceReader;
 import com.google.gson.JsonObject;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
@@ -43,7 +44,7 @@ public abstract class ResourceRequestExecutor implements Executor {
                 .ifPresent(type -> responseJson.addProperty("content_type", type));
 
         responseJson.addProperty(keyName, getResourceAsEncodedString());
-        return DefaultGoPluginApiResponse.success(GSON.toJson(responseJson));
+        return DefaultGoPluginApiResponse.success(GsonTransformer.toJson(responseJson));
     }
 
     private String getResourceAsEncodedString() {

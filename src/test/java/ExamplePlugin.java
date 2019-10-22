@@ -56,7 +56,11 @@ public class ExamplePlugin implements GoPlugin {
 
   @Override
   public GoPluginApiResponse handle(GoPluginApiRequest request) throws UnhandledRequestTypeException {
-    return requestDispatcher.dispatch(request);
+    try {
+      return requestDispatcher.dispatch(request);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
