@@ -1,0 +1,26 @@
+{
+  "scm-configuration": {
+    "SCM_URL": {
+      "value": "http://localhost.com"
+    },
+    "USERNAME": {
+      "value": "user"
+    },
+    "PASSWORD": {
+      "value": "password"
+    }
+  },
+  "scm-data": {
+    "dataKeyOne": "data-value-one",
+    "dataKeyTwo": "data-value-two"
+  },
+  "flyweight-folder": "/var/lib/go-server/pipelines/flyweight-for-this-material",
+  "previous-revision": {
+    "revision": "revision-1",
+    "timestamp": "2011-07-14T19:43:37.100Z",
+    "data": {
+      "dataKeyOne": "data-value-one",
+      "dataKeyTwo": "data-value-two"
+    }
+  }
+}

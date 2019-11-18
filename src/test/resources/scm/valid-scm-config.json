@@ -1,0 +1,13 @@
+{
+  "scm-configuration": {
+    "SCM_URL": {
+      "value": "http://localhost.com"
+    },
+    "USERNAME": {
+      "value": "user"
+    },
+    "PASSWORD": {
+      "value": "password"
+    }
+  }
+}

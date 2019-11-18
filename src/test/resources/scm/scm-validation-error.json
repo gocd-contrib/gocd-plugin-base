@@ -1,0 +1,6 @@
+[
+  {
+    "key": "SCM_URL",
+    "message": "SCM_URL must not be blank."
+  }
+]

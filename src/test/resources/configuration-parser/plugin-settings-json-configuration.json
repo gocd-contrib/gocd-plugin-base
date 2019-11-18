@@ -1,0 +1,13 @@
+{
+  "plugin-settings": {
+    "GoServerUrl": {
+      "value": "http://my.gocd.server.com"
+    },
+    "AccessKey": {
+      "value": "foo"
+    },
+    "SecretAccessKey": {
+      "value": "bar"
+    }
+  }
+}

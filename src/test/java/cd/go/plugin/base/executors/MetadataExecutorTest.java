@@ -36,7 +36,7 @@ class MetadataExecutorTest {
                 "  {\n" +
                 "    \"key\": \"path\",\n" +
                 "    \"metadata\": {\n" +
-                "      \"displayName\": \"\",\n" +
+                "      \"display_name\": \"\",\n" +
                 "      \"required\": true,\n" +
                 "      \"secure\": false\n" +
                 "    }\n" +
@@ -44,7 +44,7 @@ class MetadataExecutorTest {
                 "  {\n" +
                 "    \"key\": \"isDirectory\",\n" +
                 "    \"metadata\": {\n" +
-                "      \"displayName\": \"\",\n" +
+                "      \"display_name\": \"\",\n" +
                 "      \"required\": true,\n" +
                 "      \"secure\": true\n" +
                 "    }\n" +

@@ -48,7 +48,7 @@ class SecretsBuilderV1Test {
     }
 
     @Test
-    void shouldSupportGetIconCall() throws UnhandledRequestTypeException {
+    void shouldSupportGetIconCall() throws Exception {
         when(request.requestName()).thenReturn(SecretsBuilderV1.REQUEST_GET_ICON);
         final RequestDispatcher dispatcher = new SecretsBuilderV1()
                 .icon("/gocd.png", "image/png")
@@ -60,7 +60,7 @@ class SecretsBuilderV1Test {
     }
 
     @Test
-    void shouldSupportGetSecretConfigMetadata() throws UnhandledRequestTypeException {
+    void shouldSupportGetSecretConfigMetadata() throws Exception {
         when(request.requestName()).thenReturn(SecretsBuilderV1.REQUEST_GET_CONFIG_METADATA);
         final RequestDispatcher dispatcher = new SecretsBuilderV1()
                 .configMetadata(SecretConfig.class)
@@ -72,7 +72,7 @@ class SecretsBuilderV1Test {
     }
 
     @Test
-    void shouldSupportGetSecretConfigView() throws UnhandledRequestTypeException {
+    void shouldSupportGetSecretConfigView() throws Exception {
         when(request.requestName()).thenReturn(SecretsBuilderV1.REQUEST_GET_CONFIG_VIEW);
         final RequestDispatcher dispatcher = new SecretsBuilderV1()
                 .configView("/dummy-template.html")
@@ -84,7 +84,7 @@ class SecretsBuilderV1Test {
     }
 
     @Test
-    void shouldSupportValidateSecretConfig() throws UnhandledRequestTypeException {
+    void shouldSupportValidateSecretConfig() throws Exception {
         when(request.requestName()).thenReturn(SecretsBuilderV1.REQUEST_VALIDATE_CONFIG);
         final Validator validator = mock(Validator.class);
         when(validator.validate(any())).thenReturn(new ValidationResult());
@@ -100,7 +100,7 @@ class SecretsBuilderV1Test {
     }
 
     @Test
-    void shouldValidateSecretConfig() throws UnhandledRequestTypeException, JSONException {
+    void shouldValidateSecretConfig() throws Exception {
         when(request.requestName()).thenReturn(SecretsBuilderV1.REQUEST_VALIDATE_CONFIG);
 
         final RequestDispatcher dispatcher = new SecretsBuilderV1()
@@ -118,7 +118,7 @@ class SecretsBuilderV1Test {
     }
 
     @Test
-    void shouldSupportLookupSecretConfig() throws UnhandledRequestTypeException {
+    void shouldSupportLookupSecretConfig() throws Exception {
         when(request.requestName()).thenReturn(SecretsBuilderV1.REQUEST_SECRETS_LOOKUP);
 
         final RequestDispatcher dispatcher = new SecretsBuilderV1()

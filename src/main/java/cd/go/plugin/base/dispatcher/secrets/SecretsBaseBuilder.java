@@ -16,7 +16,7 @@
 
 package cd.go.plugin.base.dispatcher.secrets;
 
-public class SecretsBaseBuilder {
+public final class SecretsBaseBuilder {
     public SecretsBuilderV1 v1() {
         return new SecretsBuilderV1();
     }

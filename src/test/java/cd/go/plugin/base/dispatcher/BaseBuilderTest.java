@@ -16,11 +16,12 @@
 
 package cd.go.plugin.base.dispatcher;
 
+import cd.go.plugin.base.dispatcher.artifact.ArtifactBaseBuilder;
 import cd.go.plugin.base.dispatcher.authorization.AuthorizationBaseBuilder;
 import cd.go.plugin.base.dispatcher.elastic.ElasticBaseBuilder;
 import cd.go.plugin.base.dispatcher.notification.NotificationBaseBuilder;
+import cd.go.plugin.base.dispatcher.scm.ScmBaseBuilder;
 import cd.go.plugin.base.dispatcher.secrets.SecretsBaseBuilder;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,29 +29,43 @@ import static org.assertj.core.api.Assertions.assertThat;
 class BaseBuilderTest {
     @Test
     void shouldReturnBaseBuilderForSecrets() {
-        Assertions.assertThat(BaseBuilder.forSecrets())
+        assertThat(BaseBuilder.forSecrets())
                 .isNotNull()
                 .isInstanceOf(SecretsBaseBuilder.class);
     }
 
     @Test
     void shouldReturnBaseBuilderForElastic() {
-        Assertions.assertThat(BaseBuilder.forElastic())
+        assertThat(BaseBuilder.forElastic())
                 .isNotNull()
                 .isInstanceOf(ElasticBaseBuilder.class);
     }
 
     @Test
     void shouldReturnBaseBuilderForNotification() {
-        Assertions.assertThat(BaseBuilder.forNotification())
+        assertThat(BaseBuilder.forNotification())
                 .isNotNull()
                 .isInstanceOf(NotificationBaseBuilder.class);
     }
 
     @Test
     void shouldReturnBaseBuilderForAuthorization() {
-        Assertions.assertThat(BaseBuilder.forAuthorization())
+        assertThat(BaseBuilder.forAuthorization())
                 .isNotNull()
                 .isInstanceOf(AuthorizationBaseBuilder.class);
+    }
+
+    @Test
+    void shouldReturnBaseBuilderForArtifact() {
+        assertThat(BaseBuilder.forArtifact())
+                .isNotNull()
+                .isInstanceOf(ArtifactBaseBuilder.class);
+    }
+
+    @Test
+    void shouldReturnBaseBuilderForScm() {
+        assertThat(BaseBuilder.forScm())
+                .isNotNull()
+                .isInstanceOf(ScmBaseBuilder.class);
     }
 }

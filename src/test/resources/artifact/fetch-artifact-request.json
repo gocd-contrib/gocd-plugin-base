@@ -1,0 +1,15 @@
+{
+  "fetch_artifact_configuration":{
+    "image_name": "release-candidate"
+  },
+  "artifact_metadata":{
+    "image":"gocd/gocd-demo:v23",
+    "digest":"sha256:f7840887b6f09f531935329a4ad1f6176866675873a8b3eed6a5894573da8247"
+  },
+  "store_configuration":{
+    "RegistryURL":"https://index.docker.io/v1/",
+    "Username":"boohoo",
+    "Password":"password"
+  },
+  "agent_working_directory":"/Users/varshavs/gocd/agent/pipelines/build"
+}

@@ -22,7 +22,7 @@ import cd.go.plugin.base.executors.elastic.CapabilitiesExecutor;
 import cd.go.plugin.base.validation.DefaultValidator;
 import cd.go.plugin.base.validation.Validator;
 
-public class ElasticBuilderV5 extends VersionedExtensionBuilder<ElasticBuilderV5> {
+public final class ElasticBuilderV5 extends VersionedExtensionBuilder<ElasticBuilderV5> {
     protected static final String REQUEST_GET_ICON = "cd.go.elastic-agent.get-icon";
 
     protected static final String REQUEST_CAPABILITIES = "cd.go.elastic-agent.get-capabilities";
@@ -47,8 +47,8 @@ public class ElasticBuilderV5 extends VersionedExtensionBuilder<ElasticBuilderV5
     protected static final String REQUEST_CLUSTER_PROFILE_CHANGED = "cd.go.elastic-agent.cluster-profile-changed";
 
     protected ElasticBuilderV5() {
-        registry.put(REQUEST_VALIDATE_CLUSTER_PROFILE, new ValidationExecutor());
-        registry.put(REQUEST_VALIDATE_ELASTIC_AGENT_PROFILE, new ValidationExecutor());
+        register(REQUEST_VALIDATE_CLUSTER_PROFILE, new ValidationExecutor());
+        register(REQUEST_VALIDATE_ELASTIC_AGENT_PROFILE, new ValidationExecutor());
     }
 
     public ElasticBuilderV5 icon(String iconPath, String contentType) {
@@ -66,13 +66,13 @@ public class ElasticBuilderV5 extends VersionedExtensionBuilder<ElasticBuilderV5
 
     public ElasticBuilderV5 clusterProfileMetadata(Class<?> clusterProfileClass, boolean addDefaultValidator) {
         if (addDefaultValidator) {
-            ((ValidationExecutor) registry.get(REQUEST_VALIDATE_CLUSTER_PROFILE)).addAll(new DefaultValidator(clusterProfileClass));
+            ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_CLUSTER_PROFILE)).addAll(new DefaultValidator(clusterProfileClass));
         }
         return register(REQUEST_GET_CLUSTER_PROFILE_METADATA, new MetadataExecutor(clusterProfileClass));
     }
 
     public ElasticBuilderV5 validateClusterProfile(Validator... validators) {
-        ((ValidationExecutor) registry.get(REQUEST_VALIDATE_CLUSTER_PROFILE)).addAll(validators);
+        ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_CLUSTER_PROFILE)).addAll(validators);
         return this;
     }
 
@@ -87,13 +87,13 @@ public class ElasticBuilderV5 extends VersionedExtensionBuilder<ElasticBuilderV5
 
     public ElasticBuilderV5 elasticProfileMetadata(Class<?> agentProfileConfigClass, boolean addDefaultValidator) {
         if (addDefaultValidator) {
-            ((ValidationExecutor) registry.get(REQUEST_VALIDATE_ELASTIC_AGENT_PROFILE)).addAll(new DefaultValidator(agentProfileConfigClass));
+            ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_ELASTIC_AGENT_PROFILE)).addAll(new DefaultValidator(agentProfileConfigClass));
         }
         return register(REQUEST_GET_ELASTIC_AGENT_PROFILE_METADATA, new MetadataExecutor(agentProfileConfigClass));
     }
 
     public ElasticBuilderV5 validateElasticProfile(Validator... validators) {
-        ((ValidationExecutor) registry.get(REQUEST_VALIDATE_ELASTIC_AGENT_PROFILE)).addAll(validators);
+        ((ValidationExecutor) getExecutor(REQUEST_VALIDATE_ELASTIC_AGENT_PROFILE)).addAll(validators);
         return this;
     }
 

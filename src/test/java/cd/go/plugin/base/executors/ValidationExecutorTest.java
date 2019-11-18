@@ -84,38 +84,4 @@ class ValidationExecutorTest {
 
         assertEquals(expectedResponse, response.responseBody(), true);
     }
-
-    @Nested
-    class asMap {
-        @Test
-        void shouldConvertPluginSettingsRequestBodyToMap() {
-            final Map<String, String> requestBodyAsMap = new ValidationExecutor(true)
-                    .asMap("{\"plugin-settings\":{\"key-one\":{\"value\":\"value-one\"},\"key-two\":{\"value\":\"value-two\"}}}");
-
-            assertThat(requestBodyAsMap)
-                    .hasSize(2)
-                    .containsEntry("key-one", "value-one")
-                    .containsEntry("key-two", "value-two");
-        }
-
-        @Test
-        void shouldConvertConfigsRequestBodyToMap() {
-            final Map<String, String> requestBodyAsMap = new ValidationExecutor(false)
-                    .asMap("{\"Url\":\"some-url\", \"Token\":\"some-token\"}");
-
-            assertThat(requestBodyAsMap)
-                    .hasSize(2)
-                    .containsEntry("Url", "some-url")
-                    .containsEntry("Token", "some-token");
-        }
-    }
-
-    @Test
-    void shouldCallValidatorsForPluginSettingsValidationRequest() {
-        final Validator validator1 = mock(Validator.class);
-        final GoPluginApiRequest request = mock(GoPluginApiRequest.class);
-        when(request.requestBody()).thenReturn("{ \"Url\": \"some-url\"");
-
-        final Map<String, String> requestBody = singletonMap("Url", "some-url");
-    }
 }

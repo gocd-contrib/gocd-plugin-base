@@ -15,3 +15,5 @@
  */
 
 rootProject.name = 'gocd-plugin-base'
+
+include ':examples'

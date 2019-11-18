@@ -22,24 +22,22 @@ import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
+import static cd.go.plugin.base.GsonTransformer.toJson;
+
 public class ViewRequestExecutor implements Executor {
-    private final String resourcePath;
-    private final String key;
+    private final JsonObject responseJson = new JsonObject();
 
     public ViewRequestExecutor(String resourcePath) {
-        this("template", resourcePath);
+        add("template", ResourceReader.readResource(resourcePath));
     }
 
-    public ViewRequestExecutor(String key, String resourcePath) {
-        this.key = key;
-        this.resourcePath = resourcePath;
+    public ViewRequestExecutor add(String key, String value) {
+        responseJson.addProperty(key, value);
+        return this;
     }
 
     @Override
     public GoPluginApiResponse execute(GoPluginApiRequest request) {
-        JsonObject responseJson = new JsonObject();
-        String content = ResourceReader.readResource(resourcePath);
-        responseJson.addProperty(key, content);
-        return DefaultGoPluginApiResponse.success(GSON.toJson(responseJson));
+        return DefaultGoPluginApiResponse.success(toJson(responseJson));
     }
 }

@@ -2,6 +2,15 @@
 
 This is a helper utility to write GoCD plugin with minimal code.
 
+## Setup developer environment
+
+Project uses the lombok, please make sure to enable annotation processor in intellij.
+
+# Table of Contents
+
+1. [Notification Plugin](/examples/src/main/java/notification/NotificationPlugin.java)
+2. [Secrets Plugin](/examples/src/main/java/notification/NotificationPlugin.java)
+
 ## Secret v1
 
 ```java

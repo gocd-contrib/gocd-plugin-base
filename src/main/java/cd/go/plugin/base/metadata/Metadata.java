@@ -17,47 +17,28 @@
 package cd.go.plugin.base.metadata;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-import java.util.Objects;
-
+@Getter
+@ToString
+@EqualsAndHashCode
 public class Metadata {
     @Expose
+    @SerializedName("display_name")
     private final String displayName;
     @Expose
+    @SerializedName("required")
     private final boolean required;
     @Expose
+    @SerializedName("secure")
     private final boolean secure;
 
-    public Metadata(String displayName, boolean required, boolean secure) {
+    Metadata(String displayName, boolean required, boolean secure) {
         this.displayName = displayName;
         this.required = required;
         this.secure = secure;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public boolean isRequired() {
-        return required;
-    }
-
-    public boolean isSecure() {
-        return secure;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Metadata)) return false;
-        Metadata metadata = (Metadata) o;
-        return required == metadata.required &&
-                secure == metadata.secure &&
-                Objects.equals(displayName, metadata.displayName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(displayName, required, secure);
     }
 }

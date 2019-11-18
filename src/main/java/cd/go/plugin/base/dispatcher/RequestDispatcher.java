@@ -29,16 +29,19 @@ public final class RequestDispatcher {
     private final Map<String, Executor> dispatcherRegistry;
     private final GoApplicationAccessor accessor;
 
-    public RequestDispatcher(Map<String, Executor> dispatcherRegistry, GoApplicationAccessor accessor) {
+    RequestDispatcher(Map<String, Executor> dispatcherRegistry, GoApplicationAccessor accessor) {
         this.accessor = accessor;
         this.dispatcherRegistry = dispatcherRegistry;
     }
 
 
-    public final GoPluginApiResponse dispatch(GoPluginApiRequest request) throws UnhandledRequestTypeException {
+    public final GoPluginApiResponse dispatch(GoPluginApiRequest request) throws Exception {
         final Optional<Executor> executorOptional = Optional.ofNullable(dispatcherRegistry.get(request.requestName()));
 
-        return executorOptional.map(executor -> executor.execute(request))
-                .orElseThrow(() -> new UnhandledRequestTypeException(request.requestName()));
+        if (executorOptional.isPresent()) {
+            return executorOptional.get().execute(request);
+        }
+
+        throw new UnhandledRequestTypeException(request.requestName());
     }
 }

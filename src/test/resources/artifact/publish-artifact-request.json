@@ -1,0 +1,25 @@
+{
+  "environment_variables": {
+    "GO_PIPELINE_NAME": "build",
+    "GO_TRIGGER_USER": "admin",
+    "Foo": "Bar"
+  },
+  "artifact_plan": {
+    "configuration": {
+      "BuildFile": "",
+      "Image": "gocd/gocd-demo",
+      "Tag": "v${GO_PIPELINE_COUNTER}"
+    },
+    "id": "app-image",
+    "storeId": "dockerhub"
+  },
+  "artifact_store": {
+    "configuration": {
+      "RegistryURL": "https://index.docker.io/v1/",
+      "Username": "boohoo",
+      "Password": "password"
+    },
+    "id": "dockerhub"
+  },
+  "agent_working_directory": "/Users/varshavs/gocd/agent/pipelines/build"
+}

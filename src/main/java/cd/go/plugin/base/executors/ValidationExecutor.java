@@ -19,47 +19,34 @@ package cd.go.plugin.base.executors;
 import cd.go.plugin.base.GsonTransformer;
 import cd.go.plugin.base.validation.ValidationResult;
 import cd.go.plugin.base.validation.Validator;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static cd.go.plugin.base.GsonTransformer.fromJson;
+import static cd.go.plugin.base.ConfigurationParser.asMap;
 import static com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse.success;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
-import static java.util.Collections.emptyMap;
-import static java.util.Optional.ofNullable;
 
 public class ValidationExecutor implements Executor {
-    private static final Type PLUGIN_SETTINGS_TYPE = new TypeToken<Map<String, Map<String, Map<String, String>>>>() {
-    }.getType();
-    private static final Type CONFIG_TYPE = new TypeToken<Map<String, String>>() {
-    }.getType();
-
     private static Logger LOGGER = Logger.getLoggerFor(ValidationExecutor.class);
     private final List<Validator> validators = new ArrayList<>();
-    private final boolean forPluginSettings;
+    private final boolean oldJsonStructure;
 
     public ValidationExecutor(Validator... validators) {
         this(false, validators);
     }
 
     /***
-     * @param forPluginSettings set to true used for plugin settings object. Defaults to false.
+     * @param oldJsonStructure set to true used for plugin settings object and scm config objects. Defaults to false.
      * @param validators        additional validators to apply on give request body
      */
-    public ValidationExecutor(boolean forPluginSettings, Validator... validators) {
-        this.forPluginSettings = forPluginSettings;
+    public ValidationExecutor(boolean oldJsonStructure, Validator... validators) {
+        this.oldJsonStructure = oldJsonStructure;
         this.validators.addAll(asList(validators));
     }
 
@@ -77,7 +64,7 @@ public class ValidationExecutor implements Executor {
 
         validators.forEach(validator -> {
             if (validator != null) {
-                validationResult.merge(validator.validate(asMap(request.requestBody())));
+                validationResult.merge(validator.validate(asMap(request.requestBody(), oldJsonStructure)));
             }
         });
 
@@ -88,24 +75,5 @@ public class ValidationExecutor implements Executor {
 
         LOGGER.debug(format("Validation failed %s.", validationResult));
         return DefaultGoPluginApiResponse.success(GsonTransformer.toJson(validationResult));
-    }
-
-    Map<String, String> asMap(String requestBody) {
-        if (this.forPluginSettings) {
-            final JsonObject object = fromJson(requestBody, JsonObject.class);
-            final JsonElement pluginSettings = object.get("plugin-settings");
-            if (!pluginSettings.isJsonObject()) {
-                throw new IllegalArgumentException("Please make sure that given request body is valid json object!");
-            }
-
-            final HashMap<String, String> asMap = new HashMap<>();
-            for (Map.Entry<String, JsonElement> entry : pluginSettings.getAsJsonObject().entrySet()) {
-                asMap.put(entry.getKey(), entry.getValue().getAsJsonObject().get("value").getAsString());
-            }
-            return asMap;
-        } else {
-            final Map<String, String> asMap = fromJson(requestBody, CONFIG_TYPE);
-            return ofNullable(asMap).orElse(emptyMap());
-        }
     }
 }
