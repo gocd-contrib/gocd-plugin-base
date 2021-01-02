@@ -5,10 +5,8 @@ GoCD.script {
       labelTemplate = '${COUNT}'
       lockBehavior = 'none'
       materials {
-        svn('signing-keys') {
-          url = "https://github.com/gocd-private/signing-keys/trunk"
-          username = "gocd-ci-user"
-          encryptedPassword = "AES:taOvOCaXsoVwzIi+xIGLdA==:GSfhZ6KKt6MXKp/wdYYoyBQKKzbTiyDa+35kDgkEIOF75s9lzerGInbqbUM7nUKc"
+        git('signing-keys') {
+          url = "https://git.gocd.io/git/gocd/signing-keys"
           destination = "signing-keys"
         }
         git('plugin-base') {
