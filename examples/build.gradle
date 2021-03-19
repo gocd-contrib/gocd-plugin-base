@@ -24,6 +24,6 @@ repositories {
 }
 
 dependencies {
-  compileOnly group: 'cd.go.plugin', name: 'go-plugin-api', version: '19.1.0'
+  compileOnly group: 'cd.go.plugin', name: 'go-plugin-api', version: '21.2.0'
   compile(rootProject)
 }
