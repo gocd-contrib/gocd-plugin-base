@@ -72,7 +72,7 @@ GoCD.script {
                   workingDir = "plugin-base"
                 }
                 bash {
-                  commandString = 'JAVA_VERSION=15 with-java ./gradlew clean publishToSonatype closeAndReleaseSonatypeStagingRepository'
+                  commandString = './gradlew clean publishToSonatype closeAndReleaseSonatypeStagingRepository'
                   workingDir = "plugin-base"
                 }
               }
