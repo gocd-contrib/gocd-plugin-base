@@ -14,24 +14,17 @@
  * limitations under the License.
  */
 
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-  dependencies {
-    classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
-    classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.30.0"
-  }
+plugins {
+  id 'java'
+  id 'maven-publish'
+  id 'signing'
+  id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
 }
 
-apply plugin: 'maven-publish'
-apply plugin: 'java'
-apply plugin: "io.codearte.nexus-staging"
-apply plugin: 'com.bmuschko.nexus'
 apply from: "https://raw.githubusercontent.com/gocd/gocd-plugin-gradle-task-helpers/master/test-task-helper.gradle?_=${(int) (new Date().toInstant().epochSecond / 60)}"
 
 group = "cd.go.plugin.base"
-version = '0.0.2'
+version = '0.0.3'
 description = 'Helper utility to write gocd plugins'
 
 repositories {
@@ -67,12 +60,6 @@ test {
   useJUnitPlatform()
 }
 
-extraArchive {
-  sources = true
-  tests = false
-  javadoc = true
-}
-
 sourceSets {
   main.compileClasspath += project.configurations.compileClasspath
 
@@ -82,73 +69,83 @@ sourceSets {
   }
 }
 
+task javadocJar(type: Jar) {
+  archiveClassifier = 'javadoc'
+  from javadoc
+}
+
+task sourcesJar(type: Jar) {
+  archiveClassifier = 'sources'
+  from sourceSets.main.allSource
+}
+
+artifacts {
+  archives jar
+  archives javadocJar
+  archives sourcesJar
+}
+
 publishing {
   publications {
     mavenJava(MavenPublication) {
       from components.java
+      artifact sourcesJar
+      artifact javadocJar
+
+      pom {
+        name = project.name
+        description = project.description
+        url = 'https://github.com/gocd-contrib/gocd-plugin-base'
+        inceptionYear = '2018'
+
+        licenses {
+          license {
+            name = 'Apache License, Version 2.0'
+            url = 'https://www.apache.org/licenses/LICENSE-2.0'
+            distribution = 'repo'
+          }
+        }
+        developers {
+          developer {
+            id = 'GoCD Committers'
+            email = 'go-cd-dev@googlegroups.com'
+            url = 'https://www.gocd.org'
+          }
+        }
+        scm {
+          url = 'https://github.com/gocd-contrib/gocd-plugin-base'
+          connection = 'scm:https://github.com/gocd-contrib/gocd-plugin-base'
+          developerConnection = 'https://github.com/gocd-contrib/gocd-plugin-base'
+        }
+
+        organization {
+          name = 'ThoughtWorks, Inc.'
+          url = 'https://www.thoughtworks.com'
+        }
+
+        issueManagement {
+          url = 'https://github.com/gocd-contrib/gocd-plugin-base/issues'
+          system = 'GitHub'
+        }
+      }
     }
   }
 }
 
 signing {
-  project.ext.'signing.keyId' = System.getenv('GOCD_GPG_KEY_ID')
-  project.ext.'signing.password' = System.getenv('GOCD_GPG_PASSPHRASE')
-  project.ext.'signing.secretKeyRingFile' = System.getenv('GOCD_GPG_KEYRING_FILE')
-  project.ext.nexusUsername = System.getenv('GOCD_NEXUS_USERNAME')
-  project.ext.nexusPassword = System.getenv('GOCD_NEXUS_PASSWORD')
+  sign publishing.publications.mavenJava
 }
 
+project.ext.'signing.keyId' = System.getenv('GOCD_GPG_KEY_ID')
+project.ext.'signing.password' = System.getenv('GOCD_GPG_PASSPHRASE')
+project.ext.'signing.secretKeyRingFile' = System.getenv('GOCD_GPG_KEYRING_FILE')
 
-nexus {
-  nexusUsername = project.nexusUsername
-  nexusPassword = project.nexusPassword
-}
-
-nexusStaging {
+nexusPublishing {
   packageGroup = 'cd.go'
-}
-
-
-modifyPom {
-  project {
-    name = project.name
-    groupId = project.group
-    artifactId = rootProject.name
-    version = project.version
-    packaging 'jar'
-    description project.description
-    url 'https://github.com/gocd-contrib/gocd-plugin-base'
-    inceptionYear 2018
-
-    scm {
-      url 'https://github.com/gocd-contrib/gocd-plugin-base'
-      connection 'scm:https://github.com/gocd-contrib/gocd-plugin-base'
-      developerConnection 'https://github.com/gocd-contrib'
-    }
-
-    issueManagement {
-      url 'https://github.com/gocd-contrib/gocd-plugin-base/issues'
-      system 'GitHub'
-    }
-
-    licenses {
-      license {
-        name 'Apache License, Version 2.0'
-        url 'https://www.apache.org/licenses/LICENSE-2.0'
-        distribution 'repo'
-      }
-    }
-
-    organization {
-      name 'ThoughtWorks, Inc.'
-      url 'https://www.thoughtworks.com'
-    }
-
-    developers {
-      developer {
-        id = 'bdpiparva'
-        name = 'Bhupendrakumar Piprava'
-      }
+  repositories {
+    sonatype {
+      username = System.getenv('GOCD_NEXUS_USERNAME')
+      password = System.getenv('GOCD_NEXUS_PASSWORD')
     }
   }
 }

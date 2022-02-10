@@ -27,7 +27,7 @@ GoCD.script {
               elasticProfileId = 'ecs-gocd-dev-build'
               tasks {
                 bash {
-                  commandString = "JAVA_VERSION=15 with-java ./gradlew assemble check"
+                  commandString = "./gradlew assemble check"
                   workingDir = 'plugin-base'
                 }
               }
@@ -72,7 +72,7 @@ GoCD.script {
                   workingDir = "plugin-base"
                 }
                 bash {
-                  commandString = 'JAVA_VERSION=15 with-java ./gradlew clean uploadArchives closeAndReleaseRepository'
+                  commandString = 'JAVA_VERSION=15 with-java ./gradlew clean publishToSonatype closeAndReleaseSonatypeStagingRepository'
                   workingDir = "plugin-base"
                 }
               }
