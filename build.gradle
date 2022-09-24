@@ -39,7 +39,6 @@ java {
 ext {
   lombokVersion = '1.18.24'
   gocdPluginApiVersion = '22.1.0'
-  junitVersion = '5.8.2'
 }
 
 dependencies {
@@ -51,12 +50,12 @@ dependencies {
 
   compileOnly group: 'cd.go.plugin', name: 'go-plugin-api', version: gocdPluginApiVersion
 
-  compileOnly group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
-  compileOnly group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: junitVersion
-
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: junitVersion
-  testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
+  implementation platform('org.junit:junit-bom:5.9.1')
+  compileOnly group: 'org.junit.jupiter', name: 'junit-jupiter-api'
+  compileOnly group: 'org.junit.jupiter', name: 'junit-jupiter-params'
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params'
+  testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
   testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
   testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.8.0'
   testImplementation group: 'cd.go.plugin', name: 'go-plugin-api', version: gocdPluginApiVersion
