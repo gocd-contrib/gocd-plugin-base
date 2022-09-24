@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 ThoughtWorks, Inc.
+ * Copyright 2019 Thoughtworks, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -126,7 +126,7 @@ publishing {
         }
 
         organization {
-          name = 'ThoughtWorks, Inc.'
+          name = 'Thoughtworks, Inc.'
           url = 'https://www.thoughtworks.com'
         }
 
@@ -164,7 +164,7 @@ javadoc {
     windowTitle = 'Helper utility to write gocd plugins'
     docTitle = 'Helper utility to write gocd plugins'
     header = 'Helper utility to write gocd plugins'
-    bottom = "Copyright &copy; ${Calendar.getInstance().get(Calendar.YEAR).toString()} ThoughtWorks, Inc."
+    bottom = "Copyright &copy; ${Calendar.getInstance().get(Calendar.YEAR).toString()} Thoughtworks, Inc."
   }
 
   if (JavaVersion.current().isJava9Compatible()) {
