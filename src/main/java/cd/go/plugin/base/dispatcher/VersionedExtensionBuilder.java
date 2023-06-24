@@ -25,10 +25,11 @@ import cd.go.plugin.base.validation.Validator;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class VersionedExtensionBuilder<T extends VersionedExtensionBuilder> {
+public abstract class VersionedExtensionBuilder<T extends VersionedExtensionBuilder<T>> {
     private final Map<String, Executor> registry = new HashMap<>();
     protected final T self;
 
+    @SuppressWarnings("unchecked")
     protected VersionedExtensionBuilder() {
         self = (T) this;
     }
