@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Set;
 
 import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class DefaultValidator implements Validator {
     private final Class<?> secretConfigClazz;
@@ -43,7 +42,7 @@ public class DefaultValidator implements Validator {
         metadataHolders.forEach(metadataHolder -> {
             knownFields.add(metadataHolder.getKey());
             final String value = requestBody.get(metadataHolder.getKey());
-            if (metadataHolder.getMetadata().isRequired() && isBlank(value)) {
+            if (metadataHolder.getMetadata().isRequired() && (value == null || value.isBlank())) {
                 validationResult.add(metadataHolder.getKey(), format("%s must not be blank.", metadataHolder.getKey()));
             }
         });

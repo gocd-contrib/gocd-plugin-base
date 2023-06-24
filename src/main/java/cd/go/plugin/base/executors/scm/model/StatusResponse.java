@@ -18,7 +18,8 @@ package cd.go.plugin.base.executors.scm.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import org.apache.commons.lang3.StringUtils;
+
+import java.util.Objects;
 
 public class StatusResponse {
     private static final String SUCCESS = "success";
@@ -45,6 +46,6 @@ public class StatusResponse {
     }
 
     public boolean isOk() {
-        return StringUtils.equals(status, SUCCESS);
+        return Objects.equals(status, SUCCESS);
     }
 }

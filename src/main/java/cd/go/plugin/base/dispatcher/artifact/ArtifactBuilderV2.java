@@ -22,7 +22,6 @@ import cd.go.plugin.base.executors.artifact.CapabilitiesExecutor;
 import cd.go.plugin.base.validation.DefaultValidator;
 import cd.go.plugin.base.validation.Validator;
 import lombok.NonNull;
-import org.apache.commons.lang3.ArrayUtils;
 
 
 public final class ArtifactBuilderV2 extends VersionedExtensionBuilder<ArtifactBuilderV2> {
@@ -117,7 +116,7 @@ public final class ArtifactBuilderV2 extends VersionedExtensionBuilder<ArtifactB
         if (addDefaultValidator) {
             executor.addAll(new DefaultValidator(artifactStoreConfigClass));
         }
-        if (ArrayUtils.isNotEmpty(validators)) {
+        if (validators != null && validators.length > 0) {
             executor.addAll(validators);
         }
         return executor;

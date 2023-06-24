@@ -19,11 +19,13 @@ package cd.go.plugin.base.metadata;
 import cd.go.plugin.base.annotations.Property;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import org.apache.commons.lang3.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
@@ -31,8 +33,6 @@ import static java.util.Optional.ofNullable;
 
 public class MetadataExtractor {
     public List<MetadataHolder> forClass(Class<?> clazz) {
-        final List<MetadataHolder> metadataHolderList = new ArrayList<>();
-
         return Arrays.stream(clazz.getDeclaredFields())
                 .map(this::extractMetadataFromField)
                 .filter(Objects::nonNull)
@@ -55,10 +55,10 @@ public class MetadataExtractor {
         if (property.isPresent() && expose.isPresent()) {
             final Optional<SerializedName> serializedName = getAnnotation(declaredField, SerializedName.class);
             if (serializedName.isPresent()) {
-                if (!StringUtils.equals(serializedName.get().value(), property.get().name())) {
+                if (!Objects.equals(serializedName.get().value(), property.get().name())) {
                     throw new RuntimeException(String.format("@Property name is not same as @SerializeName value for field '%s'.", declaredField.getName()));
                 }
-            } else if (!StringUtils.equals(property.get().name(), declaredField.getName())) {
+            } else if (!Objects.equals(property.get().name(), declaredField.getName())) {
                 throw new RuntimeException(format(TEMPLATE, "@SerializeName", "@Expose"));
             }
 
