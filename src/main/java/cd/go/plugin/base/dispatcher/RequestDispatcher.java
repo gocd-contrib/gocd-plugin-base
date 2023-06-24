@@ -35,7 +35,7 @@ public final class RequestDispatcher {
     }
 
 
-    public final GoPluginApiResponse dispatch(GoPluginApiRequest request) throws Exception {
+    public GoPluginApiResponse dispatch(GoPluginApiRequest request) throws UnhandledRequestTypeException {
         final Optional<Executor> executorOptional = Optional.ofNullable(dispatcherRegistry.get(request.requestName()));
 
         if (executorOptional.isPresent()) {

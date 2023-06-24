@@ -34,11 +34,11 @@ import static com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse
 public abstract class LatestRevisionSinceExecutor<T> implements Executor {
 
     @Override
-    public GoPluginApiResponse execute(GoPluginApiRequest request) throws Exception {
+    public GoPluginApiResponse execute(GoPluginApiRequest request) {
         return success(toJson(execute(toLatestRevisionSinceRequest(request))));
     }
 
-    protected abstract LatestRevisionSinceResponse execute(LatestRevisionSinceRequest<T> request) throws Exception;
+    protected abstract LatestRevisionSinceResponse execute(LatestRevisionSinceRequest<T> request);
 
     private LatestRevisionSinceRequest<T> toLatestRevisionSinceRequest(GoPluginApiRequest request) {
         Type type = new TypeToken<LatestRevisionSinceRequest<T>>() {

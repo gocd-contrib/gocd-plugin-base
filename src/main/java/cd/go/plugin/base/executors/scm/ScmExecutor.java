@@ -30,13 +30,13 @@ import static com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse
 
 public abstract class ScmExecutor<T, R> implements Executor {
     @Override
-    public GoPluginApiResponse execute(GoPluginApiRequest request) throws Exception {
+    public GoPluginApiResponse execute(GoPluginApiRequest request) {
         String filteredConfig = toJson(ConfigurationParser.asMap(request.requestBody(), true));
         R response = execute(fromJson(filteredConfig, getGenericClassType()));
         return success(GsonTransformer.toJson(response));
     }
 
-    protected abstract R execute(T t) throws Exception;
+    protected abstract R execute(T t);
 
     @SuppressWarnings("unchecked")
     private Class<T> getGenericClassType() {

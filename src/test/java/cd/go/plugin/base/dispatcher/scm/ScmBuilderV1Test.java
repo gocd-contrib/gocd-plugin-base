@@ -34,12 +34,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.Mock;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Map;
 
 import static cd.go.plugin.base.GsonTransformer.asMap;
 import static cd.go.plugin.base.ResourceReader.readResource;
+import static cd.go.plugin.base.dispatcher.scm.ScmBuilderV1Test.MODIFICATION_TIME;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -47,6 +50,8 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 class ScmBuilderV1Test {
+    public static final Date MODIFICATION_TIME = Date.from(ZonedDateTime.of(2019, 11, 18, 10, 53, 34, 490000000, ZoneId.systemDefault()).toInstant());
+
     @Mock
     private GoPluginApiRequest request;
 
@@ -199,7 +204,7 @@ class ScmBuilderV1Test {
 
 class DummyCheckoutExecutor extends CheckoutExecutor<DummyScmConfig> {
     @Override
-    protected StatusResponse execute(CheckoutRequest<DummyScmConfig> request) throws Exception {
+    protected StatusResponse execute(CheckoutRequest<DummyScmConfig> request) {
         return StatusResponse.success("Successfully checked out to SCM revision provided");
     }
 }
@@ -207,8 +212,7 @@ class DummyCheckoutExecutor extends CheckoutExecutor<DummyScmConfig> {
 class DummyLatestRevisionSinceExecutor extends LatestRevisionSinceExecutor<DummyScmConfig> {
 
     @Override
-    protected LatestRevisionSinceResponse execute(LatestRevisionSinceRequest<DummyScmConfig> request) throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    protected LatestRevisionSinceResponse execute(LatestRevisionSinceRequest<DummyScmConfig> request) {
         ModifiedFile file = ModifiedFile.builder().action("added").fileName("readme.md").build();
 
         return LatestRevisionSinceResponse.builder()
@@ -219,7 +223,7 @@ class DummyLatestRevisionSinceExecutor extends LatestRevisionSinceExecutor<Dummy
                                 .revisionComment("comment")
                                 .user("Sheldon Cooper")
                                 .data(ScmData.builder().add("Foo", "bar").build())
-                                .timestamp(sdf.parse("2019-11-18T10:53:34.490Z"))
+                                .timestamp(MODIFICATION_TIME)
                                 .build()
                 ))
                 .scmData(ScmData.builder().add("Bar", "Baz").build())
@@ -229,8 +233,7 @@ class DummyLatestRevisionSinceExecutor extends LatestRevisionSinceExecutor<Dummy
 
 class DummyLatestRevisionExecutor extends LatestRevisionExecutor<DummyScmConfig> {
     @Override
-    protected LatestRevisionResponse execute(DummyScmConfig dummyScmConfig) throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    protected LatestRevisionResponse execute(DummyScmConfig dummyScmConfig) {
         ModifiedFile file = ModifiedFile.builder().action("added").fileName("readme.md").build();
 
         return LatestRevisionResponse.builder()
@@ -240,7 +243,7 @@ class DummyLatestRevisionExecutor extends LatestRevisionExecutor<DummyScmConfig>
                         .revisionComment("comment")
                         .user("Sheldon Cooper")
                         .data(ScmData.builder().add("Foo", "bar").build())
-                        .timestamp(sdf.parse("2019-11-18T10:53:34.490Z"))
+                        .timestamp(MODIFICATION_TIME)
                         .build()
                 )
                 .scmData(ScmData.builder().add("Bar", "Baz").build())

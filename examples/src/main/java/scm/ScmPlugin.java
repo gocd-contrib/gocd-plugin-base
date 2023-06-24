@@ -77,21 +77,21 @@ public class ScmPlugin implements GoPlugin {
     private static class ExampleLatestRevisionExecutor extends LatestRevisionExecutor<ScmConfig> {
 
         @Override
-        protected LatestRevisionResponse execute(ScmConfig scmConfig) throws Exception {
+        protected LatestRevisionResponse execute(ScmConfig scmConfig) {
             return null;
         }
     }
 
     private static class ExampleLatestRevisionSinceExecutor extends LatestRevisionSinceExecutor<ScmConfig> {
         @Override
-        protected LatestRevisionSinceResponse execute(LatestRevisionSinceRequest<ScmConfig> request) throws Exception {
+        protected LatestRevisionSinceResponse execute(LatestRevisionSinceRequest<ScmConfig> request) {
             return null;
         }
     }
 
     private static class ExampleCheckoutExecutor extends CheckoutExecutor<ScmConfig> {
         @Override
-        protected StatusResponse execute(CheckoutRequest<ScmConfig> request) throws Exception {
+        protected StatusResponse execute(CheckoutRequest<ScmConfig> request) {
             return null;
         }
     }
@@ -122,7 +122,7 @@ class UrlValidator implements Validator {
 
 class ExampleCheckConnectionExecutor extends CheckConnectionExecutor<ScmConfig> {
     @Override
-    protected StatusResponse execute(ScmConfig scmConfig) throws Exception {
+    protected StatusResponse execute(ScmConfig scmConfig) {
         // Implement Me!!
         return null;
     }

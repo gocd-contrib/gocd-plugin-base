@@ -34,11 +34,11 @@ import static com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse
 public abstract class CheckoutExecutor<T> implements Executor {
 
     @Override
-    public GoPluginApiResponse execute(GoPluginApiRequest request) throws Exception {
+    public GoPluginApiResponse execute(GoPluginApiRequest request) {
         return success(toJson(execute(toCheckoutRequest(request))));
     }
 
-    protected abstract StatusResponse execute(CheckoutRequest<T> request) throws Exception;
+    protected abstract StatusResponse execute(CheckoutRequest<T> request);
 
     private CheckoutRequest<T> toCheckoutRequest(GoPluginApiRequest request) {
         Type type = new TypeToken<CheckoutRequest<T>>() {

@@ -20,5 +20,5 @@ import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
 public interface Executor {
-    GoPluginApiResponse execute(GoPluginApiRequest request) throws Exception;
+    GoPluginApiResponse execute(GoPluginApiRequest request);
 }
