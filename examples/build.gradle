@@ -24,7 +24,6 @@ repositories {
 }
 
 dependencies {
-  compileOnly group: 'cd.go.plugin', name: 'go-plugin-api', version: '23.1.0'
-  compileOnly group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+  compileOnly "cd.go.plugin:go-plugin-api:${parent.ext.gocdPluginApiVersion}"
   implementation(rootProject)
 }

@@ -24,7 +24,7 @@ plugins {
 apply from: "https://raw.githubusercontent.com/gocd/gocd-plugin-gradle-task-helpers/master/test-task-helper.gradle?_=${(int) (new Date().toInstant().epochSecond / 60)}"
 
 group = "cd.go.plugin.base"
-version = '0.0.4'
+version = '0.0.5'
 description = 'Helper utility to write gocd plugins'
 
 repositories {
@@ -37,28 +37,29 @@ java {
 }
 
 ext {
-  lombokVersion = '1.18.24'
-  gocdPluginApiVersion = '22.1.0'
+  lombokVersion = '1.18.28'
+  gocdPluginApiVersion = '23.1.0'
+  gsonVersion = '2.10.1'
 }
 
 dependencies {
-  api group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+  api "com.google.code.gson:gson:$gsonVersion"
 
-  compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
-  annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+  compileOnly "org.projectlombok:lombok:$lombokVersion"
+  annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
-  compileOnly group: 'cd.go.plugin', name: 'go-plugin-api', version: gocdPluginApiVersion
+  compileOnly "cd.go.plugin:go-plugin-api:$gocdPluginApiVersion"
 
   implementation platform('org.junit:junit-bom:5.9.3')
-  compileOnly group: 'org.junit.jupiter', name: 'junit-jupiter-api'
-  compileOnly group: 'org.junit.jupiter', name: 'junit-jupiter-params'
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params'
-  testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
-  testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
-  testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.4.0'
-  testImplementation group: 'cd.go.plugin', name: 'go-plugin-api', version: gocdPluginApiVersion
-  testImplementation group: 'org.skyscreamer', name: 'jsonassert', version: '1.5.1'
+  compileOnly 'org.junit.jupiter:junit-jupiter-api'
+  compileOnly 'org.junit.jupiter:junit-jupiter-params'
+  testImplementation 'org.junit.jupiter:junit-jupiter-api'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+  testImplementation 'org.assertj:assertj-core:3.24.2'
+  testImplementation 'org.mockito:mockito-core:5.4.0'
+  testImplementation "cd.go.plugin:go-plugin-api:$gocdPluginApiVersion"
+  testImplementation 'org.skyscreamer:jsonassert:1.5.1'
 }
 
 test {
