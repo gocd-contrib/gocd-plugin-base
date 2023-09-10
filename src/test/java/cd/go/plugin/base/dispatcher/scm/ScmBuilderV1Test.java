@@ -45,9 +45,8 @@ import static cd.go.plugin.base.ResourceReader.readResource;
 import static cd.go.plugin.base.dispatcher.scm.ScmBuilderV1Test.MODIFICATION_TIME;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.MockitoAnnotations.openMocks;
 
 class ScmBuilderV1Test {
     public static final Date MODIFICATION_TIME = Date.from(ZonedDateTime.of(2019, 11, 18, 10, 53, 34, 490000000, ZoneId.systemDefault()).toInstant());
@@ -57,7 +56,7 @@ class ScmBuilderV1Test {
 
     @BeforeEach
     void setUp() {
-        initMocks(this);
+        openMocks(this);
     }
 
     @Nested

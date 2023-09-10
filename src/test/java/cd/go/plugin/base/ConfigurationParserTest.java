@@ -17,7 +17,6 @@
 package cd.go.plugin.base;
 
 import cd.go.plugin.base.test_helper.annotations.JsonSource;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 
 import java.util.Map;
