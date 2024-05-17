@@ -38,7 +38,7 @@ java {
 
 ext {
   lombokVersion = '1.18.32'
-  gocdPluginApiVersion = '23.5.0'
+  gocdPluginApiVersion = '24.1.0'
   gsonVersion = '2.10.1'
 }
 
