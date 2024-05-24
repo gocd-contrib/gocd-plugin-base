@@ -41,8 +41,7 @@ public abstract class LatestRevisionSinceExecutor<T> implements Executor {
     protected abstract LatestRevisionSinceResponse execute(LatestRevisionSinceRequest<T> request);
 
     private LatestRevisionSinceRequest<T> toLatestRevisionSinceRequest(GoPluginApiRequest request) {
-        Type type = new TypeToken<LatestRevisionSinceRequest<T>>() {
-        }.getType();
+        Type type = TypeToken.getParameterized(LatestRevisionSinceRequest.class, getGenericClassType()).getType();
 
         LatestRevisionSinceRequest<T> req = fromJson(request.requestBody(), type);
         req.setScmConfiguration(parseScmConfiguration(request.requestBody()));

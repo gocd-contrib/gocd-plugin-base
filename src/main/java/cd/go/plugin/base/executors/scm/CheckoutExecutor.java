@@ -41,8 +41,7 @@ public abstract class CheckoutExecutor<T> implements Executor {
     protected abstract StatusResponse execute(CheckoutRequest<T> request);
 
     private CheckoutRequest<T> toCheckoutRequest(GoPluginApiRequest request) {
-        Type type = new TypeToken<CheckoutRequest<T>>() {
-        }.getType();
+        Type type = TypeToken.getParameterized(CheckoutRequest.class, getGenericClassType()).getType();
 
         CheckoutRequest<T> req = fromJson(request.requestBody(), type);
         req.setScmConfiguration(parseScmConfiguration(request.requestBody()));
