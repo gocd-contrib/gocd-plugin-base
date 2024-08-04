@@ -1,3 +1,9 @@
+import cd.go.contrib.plugins.configrepo.groovy.dsl.GoCD
+
+def secretParam = { String param ->
+  return "{{SECRET:[build-pipelines][$param]}}".toString()
+}
+
 GoCD.script {
   pipelines {
     pipeline('gocd-plugin-base') {
@@ -42,14 +48,14 @@ GoCD.script {
             type = 'manual'
           }
           environmentVariables = [
-            GNUPGHOME            : '.signing',
-            GOCD_GPG_KEYRING_FILE: 'signing-key.gpg',
+            GNUPGHOME             : '.signing',
+            GOCD_GPG_KEYRING_FILE : 'signing-key.gpg',
           ]
           secureEnvironmentVariables = [
-            GOCD_NEXUS_USERNAME: 'AES:H0l96KkJWnHkWdJPVdha2Q==:XvKyOuun43zh4L+TSpbGvw==',
-            GOCD_NEXUS_PASSWORD: 'AES:r/8x3K1wEReuRZRmm37h/g==:ASQOrYbpwigCPA8GfkQi7NWDzejOTean0v9XwYUcvjPlgWdvR6xnvbwvrAdBE6Rg',
-            GOCD_GPG_PASSPHRASE: 'AES:7lAutKoRKMuSnh3Sbg9DeQ==:8fhND9w/8AWw6dJhmWpTcCdKSsEcOzriQNiKFZD6XtN+sJvZ65NH/QFXRNiy192+SSTKsbhOrFmw+kAKt5+MH1Erd6H54zJjpSgvJUmsJaQ=',
-            GOCD_GPG_KEY_ID    : 'AES:+ORNmqROtoiLtfp+q4FlfQ==:PxQcI6mOtG4J/WQHS9jakg=='
+            GOCD_GPG_KEY_ID              : 'AES:+ORNmqROtoiLtfp+q4FlfQ==:PxQcI6mOtG4J/WQHS9jakg==',
+            GOCD_GPG_PASSPHRASE          : secretParam("GOCD_GPG_PASSPHRASE"),
+            MAVEN_CENTRAL_TOKEN_USERNAME : secretParam("MAVEN_CENTRAL_TOKEN_USERNAME"),
+            MAVEN_CENTRAL_TOKEN_PASSWORD : secretParam("MAVEN_CENTRAL_TOKEN_PASSWORD"),
           ]
           jobs {
             job('upload-to-maven') {

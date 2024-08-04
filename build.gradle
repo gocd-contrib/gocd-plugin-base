@@ -24,7 +24,7 @@ plugins {
 apply from: "https://raw.githubusercontent.com/gocd/gocd-plugin-gradle-task-helpers/master/test-task-helper.gradle?_=${(int) (new Date().toInstant().epochSecond / 60)}"
 
 group = "cd.go.plugin.base"
-version = '0.0.7'
+version = '0.0.8'
 description = 'Helper utility to write gocd plugins'
 
 repositories {
@@ -38,7 +38,7 @@ java {
 
 ext {
   lombokVersion = '1.18.34'
-  gocdPluginApiVersion = '24.1.0'
+  gocdPluginApiVersion = '24.2.0'
   gsonVersion = '2.11.0'
 }
 
@@ -151,8 +151,8 @@ nexusPublishing {
   packageGroup = 'cd.go'
   repositories {
     sonatype {
-      username = System.getenv('GOCD_NEXUS_USERNAME')
-      password = System.getenv('GOCD_NEXUS_PASSWORD')
+      username = System.getenv('MAVEN_CENTRAL_TOKEN_USERNAME')
+      password = System.getenv('MAVEN_CENTRAL_TOKEN_PASSWORD')
     }
   }
 }
