@@ -57,7 +57,7 @@ dependencies {
   testImplementation 'org.junit.jupiter:junit-jupiter-params'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
   testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-  testImplementation 'org.assertj:assertj-core:3.26.3'
+  testImplementation 'org.assertj:assertj-core:3.27.0'
   testImplementation 'org.mockito:mockito-core:5.14.2'
   testImplementation "cd.go.plugin:go-plugin-api:$gocdPluginApiVersion"
   testImplementation 'org.skyscreamer:jsonassert:1.5.3'
