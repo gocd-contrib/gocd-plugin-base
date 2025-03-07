@@ -16,11 +16,8 @@ GoCD.script {
           destination = "signing-keys"
         }
         git('plugin-base') {
-          branch = 'master'
-          shallowClone = false
-          url = 'https://github.com/gocd-contrib/gocd-plugin-base'
+          url = 'https://git.gocd.io/git/gocd-contrib/gocd-plugin-base'
           destination = 'plugin-base'
-          autoUpdate = true
         }
       }
       stages {
