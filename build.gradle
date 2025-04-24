@@ -24,7 +24,7 @@ plugins {
 apply from: "https://raw.githubusercontent.com/gocd/gocd-plugin-gradle-task-helpers/master/test-task-helper.gradle?_=${(int) (new Date().toInstant().epochSecond / 60)}"
 
 group = "cd.go.plugin.base"
-version = '1.0.1'
+version = '1.0.2'
 description = 'Helper utility to write gocd plugins'
 
 repositories {
