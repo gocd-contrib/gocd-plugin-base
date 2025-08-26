@@ -21,6 +21,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.support.AnnotationConsumer;
+import org.junit.jupiter.params.support.ParameterDeclarations;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -29,7 +30,7 @@ public class JsonSourceProvider implements ArgumentsProvider, AnnotationConsumer
     private String[] jsonFiles;
 
     @Override
-    public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
+    public Stream<? extends Arguments> provideArguments(ParameterDeclarations parameters, ExtensionContext context) {
         return Stream.of(Arguments.of(Arrays.stream(jsonFiles)
                 .map(ResourceReader::readResource).toArray()));
     }
