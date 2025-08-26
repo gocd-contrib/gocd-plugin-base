@@ -38,7 +38,7 @@ java {
 
 ext {
   lombokVersion = '1.18.38'
-  gocdPluginApiVersion = '25.2.0'
+  gocdPluginApiVersion = '25.3.0'
   gsonVersion = '2.13.1'
 }
 
@@ -57,7 +57,7 @@ dependencies {
   testImplementation 'org.junit.jupiter:junit-jupiter-params'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
   testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-  testImplementation 'org.assertj:assertj-core:3.27.3'
+  testImplementation 'org.assertj:assertj-core:3.27.4'
   testImplementation 'org.mockito:mockito-core:5.19.0'
   testImplementation "cd.go.plugin:go-plugin-api:$gocdPluginApiVersion"
   testImplementation 'org.skyscreamer:jsonassert:1.5.3'
