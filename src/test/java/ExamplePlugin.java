@@ -25,7 +25,6 @@ import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
 import com.thoughtworks.go.plugin.api.GoPlugin;
 import com.thoughtworks.go.plugin.api.GoPluginIdentifier;
 import com.thoughtworks.go.plugin.api.annotation.Extension;
-import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
@@ -55,7 +54,7 @@ public class ExamplePlugin implements GoPlugin {
   }
 
   @Override
-  public GoPluginApiResponse handle(GoPluginApiRequest request) throws UnhandledRequestTypeException {
+  public GoPluginApiResponse handle(GoPluginApiRequest request) {
     try {
       return requestDispatcher.dispatch(request);
     } catch (Exception e) {

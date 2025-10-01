@@ -71,12 +71,13 @@ class ValidationExecutorTest {
         final GoPluginApiResponse response = new ValidationExecutor(validator).execute(request);
 
         assertThat(response.responseCode()).isEqualTo(200);
-        final String expectedResponse = "[\n" +
-                "  {\n" +
-                "    \"key\": \"Path\",\n" +
-                "    \"message\": \"Path must not be black.\"\n" +
-                "  }\n" +
-                "]";
+        final String expectedResponse = """
+                [
+                  {
+                    "key": "Path",
+                    "message": "Path must not be black."
+                  }
+                ]""";
 
         assertEquals(expectedResponse, response.responseBody(), true);
     }

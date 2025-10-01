@@ -31,16 +31,16 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Stream.of;
 
 public final class NotificationBuilderV4 extends VersionedExtensionBuilder<NotificationBuilderV4> {
-    protected static final String REQUEST_NOTIFY_PLUGIN_SETTINGS_CHANGE = "go.plugin-settings.plugin-settings-changed";
-    protected static final String REQUEST_GET_PLUGIN_SETTINGS_METADATA = "go.plugin-settings.get-configuration";
-    protected static final String REQUEST_GET_PLUGIN_SETTINGS_VIEW = "go.plugin-settings.get-view";
-    protected static final String REQUEST_VALIDATE_PLUGIN_SETTINGS = "go.plugin-settings.validate-configuration";
+    private static final String REQUEST_NOTIFY_PLUGIN_SETTINGS_CHANGE = "go.plugin-settings.plugin-settings-changed";
+    static final String REQUEST_GET_PLUGIN_SETTINGS_METADATA = "go.plugin-settings.get-configuration";
+    static final String REQUEST_GET_PLUGIN_SETTINGS_VIEW = "go.plugin-settings.get-view";
+    static final String REQUEST_VALIDATE_PLUGIN_SETTINGS = "go.plugin-settings.validate-configuration";
 
-    protected static final String REQUEST_NOTIFICATIONS_INTERESTED_IN = "notifications-interested-in";
+    static final String REQUEST_NOTIFICATIONS_INTERESTED_IN = "notifications-interested-in";
     public static final String REQUEST_STAGE_STATUS = "stage-status";
     public static final String REQUEST_AGENT_STATUS = "agent-status";
 
-    protected NotificationBuilderV4() {
+    NotificationBuilderV4() {
         register(REQUEST_VALIDATE_PLUGIN_SETTINGS, new ValidationExecutor(true));
     }
 

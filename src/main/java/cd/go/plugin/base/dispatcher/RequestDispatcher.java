@@ -17,7 +17,6 @@
 package cd.go.plugin.base.dispatcher;
 
 import cd.go.plugin.base.executors.Executor;
-import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
 import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
@@ -27,10 +26,8 @@ import java.util.Optional;
 
 public final class RequestDispatcher {
     private final Map<String, Executor> dispatcherRegistry;
-    private final GoApplicationAccessor accessor;
 
-    RequestDispatcher(Map<String, Executor> dispatcherRegistry, GoApplicationAccessor accessor) {
-        this.accessor = accessor;
+    RequestDispatcher(Map<String, Executor> dispatcherRegistry) {
         this.dispatcherRegistry = dispatcherRegistry;
     }
 

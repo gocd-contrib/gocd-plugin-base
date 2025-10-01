@@ -80,14 +80,14 @@ sourceSets {
   }
 }
 
-task javadocJar(type: Jar) {
-  archiveClassifier = 'javadoc'
-  from javadoc
+tasks.register('javadocJar', Jar) {
+    archiveClassifier = 'javadoc'
+    from javadoc
 }
 
-task sourcesJar(type: Jar) {
-  archiveClassifier = 'sources'
-  from sourceSets.main.allSource
+tasks.register('sourcesJar', Jar) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
 }
 
 artifacts {

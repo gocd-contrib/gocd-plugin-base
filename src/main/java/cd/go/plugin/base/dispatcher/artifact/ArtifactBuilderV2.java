@@ -25,23 +25,23 @@ import lombok.NonNull;
 
 
 public final class ArtifactBuilderV2 extends VersionedExtensionBuilder<ArtifactBuilderV2> {
-    protected static final String REQUEST_GET_ICON = "cd.go.artifact.get-icon";
-    protected static final String REQUEST_GET_CAPABILITIES = "cd.go.artifact.get-capabilities";
+    static final String REQUEST_GET_ICON = "cd.go.artifact.get-icon";
+    private static final String REQUEST_GET_CAPABILITIES = "cd.go.artifact.get-capabilities";
 
-    protected static final String REQUEST_ARTIFACT_STORE_METADATA = "cd.go.artifact.store.get-metadata";
-    protected static final String REQUEST_ARTIFACT_STORE_VIEW = "cd.go.artifact.store.get-view";
-    protected static final String REQUEST_ARTIFACT_STORE_VALIDATE = "cd.go.artifact.store.validate";
+    static final String REQUEST_ARTIFACT_STORE_METADATA = "cd.go.artifact.store.get-metadata";
+    static final String REQUEST_ARTIFACT_STORE_VIEW = "cd.go.artifact.store.get-view";
+    static final String REQUEST_ARTIFACT_STORE_VALIDATE = "cd.go.artifact.store.validate";
 
-    protected static final String REQUEST_PUBLISH_ARTIFACT_METADATA = "cd.go.artifact.publish.get-metadata";
-    protected static final String REQUEST_PUBLISH_ARTIFACT_VIEW = "cd.go.artifact.publish.get-view";
-    protected static final String REQUEST_PUBLISH_ARTIFACT_VALIDATE = "cd.go.artifact.publish.validate";
+    static final String REQUEST_PUBLISH_ARTIFACT_METADATA = "cd.go.artifact.publish.get-metadata";
+    static final String REQUEST_PUBLISH_ARTIFACT_VIEW = "cd.go.artifact.publish.get-view";
+    static final String REQUEST_PUBLISH_ARTIFACT_VALIDATE = "cd.go.artifact.publish.validate";
 
-    protected static final String REQUEST_FETCH_ARTIFACT_METADATA = "cd.go.artifact.fetch.get-metadata";
-    protected static final String REQUEST_FETCH_ARTIFACT_VIEW = "cd.go.artifact.fetch.get-view";
-    protected static final String REQUEST_FETCH_ARTIFACT_VALIDATE = "cd.go.artifact.fetch.validate";
+    static final String REQUEST_FETCH_ARTIFACT_METADATA = "cd.go.artifact.fetch.get-metadata";
+    static final String REQUEST_FETCH_ARTIFACT_VIEW = "cd.go.artifact.fetch.get-view";
+    static final String REQUEST_FETCH_ARTIFACT_VALIDATE = "cd.go.artifact.fetch.validate";
 
-    protected static final String REQUEST_PUBLISH_ARTIFACT = "cd.go.artifact.publish-artifact";
-    protected static final String REQUEST_FETCH_ARTIFACT = "cd.go.artifact.fetch-artifact";
+    static final String REQUEST_PUBLISH_ARTIFACT = "cd.go.artifact.publish-artifact";
+    static final String REQUEST_FETCH_ARTIFACT = "cd.go.artifact.fetch-artifact";
 
     public ArtifactBuilderV2() {
         register(REQUEST_ARTIFACT_STORE_VALIDATE, new ValidationExecutor());

@@ -28,11 +28,11 @@ import cd.go.plugin.base.validation.Validator;
 public final class SecretsBuilderV1 extends VersionedExtensionBuilder<SecretsBuilderV1> {
     public static final String REQUEST_GET_ICON = "go.cd.secrets.get-icon";
     public static final String REQUEST_GET_CONFIG_METADATA = "go.cd.secrets.secrets-config.get-metadata";
-    protected static final String REQUEST_GET_CONFIG_VIEW = "go.cd.secrets.secrets-config.get-view";
-    protected static final String REQUEST_VALIDATE_CONFIG = "go.cd.secrets.secrets-config.validate";
-    protected static final String REQUEST_SECRETS_LOOKUP = "go.cd.secrets.secrets-lookup";
+    static final String REQUEST_GET_CONFIG_VIEW = "go.cd.secrets.secrets-config.get-view";
+    static final String REQUEST_VALIDATE_CONFIG = "go.cd.secrets.secrets-config.validate";
+    static final String REQUEST_SECRETS_LOOKUP = "go.cd.secrets.secrets-lookup";
 
-    protected SecretsBuilderV1() {
+    SecretsBuilderV1() {
         register(REQUEST_VALIDATE_CONFIG, new ValidationExecutor());
     }
 

@@ -37,7 +37,7 @@ class DefaultValidatorTest {
 
     @Test
     void shouldReturnResultWithErrorsIfConfigHasUnknownFields() {
-        final Map<String, String> requestBody = new HashMap<String, String>() {{
+        final Map<String, String> requestBody = new HashMap<>() {{
             put("Url", "https://foo");
             put("Permission", "unknown field");
         }};
@@ -51,7 +51,7 @@ class DefaultValidatorTest {
 
     @Test
     void shouldReturnResultWithErrorsIfMandatoryFieldHasNoValue() {
-        final Map<String, String> requestBody = new HashMap<String, String>() {{
+        final Map<String, String> requestBody = new HashMap<>() {{
             put("Path", "foo");
         }};
 
@@ -64,7 +64,7 @@ class DefaultValidatorTest {
 
     @Test
     void shouldReturnResultWithoutErrorsIfConfigIsValid() {
-        final Map<String, String> requestBody = new HashMap<String, String>() {{
+        final Map<String, String> requestBody = new HashMap<>() {{
             put("Url", "https://foo");
         }};
 

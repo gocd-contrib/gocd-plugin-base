@@ -33,7 +33,7 @@ import static java.lang.String.format;
 import static java.util.Arrays.asList;
 
 public class ValidationExecutor implements Executor {
-    private static Logger LOGGER = Logger.getLoggerFor(ValidationExecutor.class);
+    private static final Logger LOGGER = Logger.getLoggerFor(ValidationExecutor.class);
     private final List<Validator> validators = new ArrayList<>();
     private final boolean oldJsonStructure;
 

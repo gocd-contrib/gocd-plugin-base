@@ -23,30 +23,30 @@ import cd.go.plugin.base.validation.DefaultValidator;
 import cd.go.plugin.base.validation.Validator;
 
 public final class ElasticBuilderV5 extends VersionedExtensionBuilder<ElasticBuilderV5> {
-    protected static final String REQUEST_GET_ICON = "cd.go.elastic-agent.get-icon";
+    static final String REQUEST_GET_ICON = "cd.go.elastic-agent.get-icon";
 
-    protected static final String REQUEST_CAPABILITIES = "cd.go.elastic-agent.get-capabilities";
-    protected static final String REQUEST_GET_ELASTIC_AGENT_PROFILE_METADATA = "cd.go.elastic-agent.get-elastic-agent-profile-metadata";
-    protected static final String REQUEST_GET_ELASTIC_AGENT_PROFILE_VIEW = "cd.go.elastic-agent.get-elastic-agent-profile-view";
-    protected static final String REQUEST_VALIDATE_ELASTIC_AGENT_PROFILE = "cd.go.elastic-agent.validate-elastic-agent-profile";
+    static final String REQUEST_CAPABILITIES = "cd.go.elastic-agent.get-capabilities";
+    static final String REQUEST_GET_ELASTIC_AGENT_PROFILE_METADATA = "cd.go.elastic-agent.get-elastic-agent-profile-metadata";
+    static final String REQUEST_GET_ELASTIC_AGENT_PROFILE_VIEW = "cd.go.elastic-agent.get-elastic-agent-profile-view";
+    static final String REQUEST_VALIDATE_ELASTIC_AGENT_PROFILE = "cd.go.elastic-agent.validate-elastic-agent-profile";
 
-    protected static final String REQUEST_GET_CLUSTER_PROFILE_METADATA = "cd.go.elastic-agent.get-cluster-profile-metadata";
-    protected static final String REQUEST_GET_CLUSTER_PROFILE_VIEW = "cd.go.elastic-agent.get-cluster-profile-view";
-    protected static final String REQUEST_VALIDATE_CLUSTER_PROFILE = "cd.go.elastic-agent.validate-cluster-profile";
+    static final String REQUEST_GET_CLUSTER_PROFILE_METADATA = "cd.go.elastic-agent.get-cluster-profile-metadata";
+    static final String REQUEST_GET_CLUSTER_PROFILE_VIEW = "cd.go.elastic-agent.get-cluster-profile-view";
+    static final String REQUEST_VALIDATE_CLUSTER_PROFILE = "cd.go.elastic-agent.validate-cluster-profile";
 
-    protected static final String REQUEST_CREATE_AGENT = "cd.go.elastic-agent.create-agent";
-    protected static final String REQUEST_SERVER_PING = "cd.go.elastic-agent.server-ping";
-    protected static final String REQUEST_SHOULD_ASSIGN_WORK = "cd.go.elastic-agent.should-assign-work";
+    static final String REQUEST_CREATE_AGENT = "cd.go.elastic-agent.create-agent";
+    static final String REQUEST_SERVER_PING = "cd.go.elastic-agent.server-ping";
+    static final String REQUEST_SHOULD_ASSIGN_WORK = "cd.go.elastic-agent.should-assign-work";
 
-    protected static final String REQUEST_AGENT_STATUS_REPORT = "cd.go.elastic-agent.agent-status-report";
-    protected static final String REQUEST_CLUSTER_STATUS_REPORT = "cd.go.elastic-agent.cluster-status-report";
-    protected static final String REQUEST_PLUGIN_STATUS_REPORT = "cd.go.elastic-agent.plugin-status-report";
+    static final String REQUEST_AGENT_STATUS_REPORT = "cd.go.elastic-agent.agent-status-report";
+    static final String REQUEST_CLUSTER_STATUS_REPORT = "cd.go.elastic-agent.cluster-status-report";
+    static final String REQUEST_PLUGIN_STATUS_REPORT = "cd.go.elastic-agent.plugin-status-report";
 
-    protected static final String REQUEST_JOB_COMPLETION = "cd.go.elastic-agent.job-completion";
-    protected static final String REQUEST_MIGRATE_CONFIGURATION = "cd.go.elastic-agent.migrate-config";
-    protected static final String REQUEST_CLUSTER_PROFILE_CHANGED = "cd.go.elastic-agent.cluster-profile-changed";
+    static final String REQUEST_JOB_COMPLETION = "cd.go.elastic-agent.job-completion";
+    static final String REQUEST_MIGRATE_CONFIGURATION = "cd.go.elastic-agent.migrate-config";
+    static final String REQUEST_CLUSTER_PROFILE_CHANGED = "cd.go.elastic-agent.cluster-profile-changed";
 
-    protected ElasticBuilderV5() {
+    ElasticBuilderV5() {
         register(REQUEST_VALIDATE_CLUSTER_PROFILE, new ValidationExecutor());
         register(REQUEST_VALIDATE_ELASTIC_AGENT_PROFILE, new ValidationExecutor());
     }

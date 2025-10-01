@@ -35,7 +35,7 @@ public abstract class VersionedExtensionBuilder<T extends VersionedExtensionBuil
     }
 
     public RequestDispatcher build() {
-        return new RequestDispatcher(registry, null);
+        return new RequestDispatcher(registry);
     }
 
     protected T icon(String requestName, String iconPath, String contentType) {

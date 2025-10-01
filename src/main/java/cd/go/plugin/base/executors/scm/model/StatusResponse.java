@@ -30,7 +30,7 @@ public class StatusResponse {
 
     @Expose
     @SerializedName("messages")
-    private String[] messages = {};
+    private String[] messages;
 
     private StatusResponse(String status, String... messages) {
         this.status = status;

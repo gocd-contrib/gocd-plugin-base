@@ -43,8 +43,7 @@ public class Capabilities {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Capabilities)) return false;
-        Capabilities that = (Capabilities) o;
+        if (!(o instanceof Capabilities that)) return false;
         return supportsStatusReport == that.supportsStatusReport &&
                 supportsClusterStatusReport == that.supportsClusterStatusReport &&
                 supportsAgentStatusReport == that.supportsAgentStatusReport;

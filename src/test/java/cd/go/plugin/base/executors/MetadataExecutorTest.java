@@ -32,24 +32,25 @@ class MetadataExecutorTest {
         final GoPluginApiResponse response = new MetadataExecutor(FileConfig.class).execute(null);
 
         assertThat(response.responseCode()).isEqualTo(200);
-        final String expected = "[\n" +
-                "  {\n" +
-                "    \"key\": \"path\",\n" +
-                "    \"metadata\": {\n" +
-                "      \"display_name\": \"\",\n" +
-                "      \"required\": true,\n" +
-                "      \"secure\": false\n" +
-                "    }\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"key\": \"isDirectory\",\n" +
-                "    \"metadata\": {\n" +
-                "      \"display_name\": \"\",\n" +
-                "      \"required\": true,\n" +
-                "      \"secure\": true\n" +
-                "    }\n" +
-                "  }\n" +
-                "]";
+        final String expected = """
+                [
+                  {
+                    "key": "path",
+                    "metadata": {
+                      "display_name": "",
+                      "required": true,
+                      "secure": false
+                    }
+                  },
+                  {
+                    "key": "isDirectory",
+                    "metadata": {
+                      "display_name": "",
+                      "required": true,
+                      "secure": true
+                    }
+                  }
+                ]""";
 
         assertEquals(expected, response.responseBody(), true);
     }

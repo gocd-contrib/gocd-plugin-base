@@ -64,11 +64,12 @@ class ElasticBuilderV5Test {
         final GoPluginApiResponse response = dispatcher.dispatch(request);
 
         assertThat(response.responseCode()).isEqualTo(200);
-        final String expectedResponse = "{\n" +
-                "  \"supports_agent_status_report\": true,\n" +
-                "  \"supports_cluster_status_report\": false,\n" +
-                "  \"supports_plugin_status_report\": false\n" +
-                "}";
+        final String expectedResponse = """
+                {
+                  "supports_agent_status_report": true,
+                  "supports_cluster_status_report": false,
+                  "supports_plugin_status_report": false
+                }""";
         assertEquals(expectedResponse, response.responseBody(), true);
     }
 

@@ -42,8 +42,7 @@ public class ValidationError {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ValidationError)) return false;
-        ValidationError that = (ValidationError) o;
+        if (!(o instanceof ValidationError that)) return false;
         return Objects.equals(key, that.key) &&
                 Objects.equals(message, that.message);
     }

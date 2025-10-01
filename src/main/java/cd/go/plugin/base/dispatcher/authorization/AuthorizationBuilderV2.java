@@ -39,7 +39,7 @@ public final class AuthorizationBuilderV2 extends VersionedExtensionBuilder<Auth
     static final String REQUEST_ACCESS_TOKEN = "go.cd.authorization.fetch-access-token";
     static final String REQUEST_AUTHORIZATION_SERVER_URL = "go.cd.authorization.authorization-server-url";
 
-    protected AuthorizationBuilderV2() {
+    AuthorizationBuilderV2() {
         register(REQUEST_VALIDATE_AUTH_CONFIG, new ValidationExecutor());
         register(REQUEST_VALIDATE_ROLE_CONFIG, new ValidationExecutor());
     }
