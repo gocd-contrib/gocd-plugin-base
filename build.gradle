@@ -41,7 +41,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 ext {
-  lombokVersion = '1.18.38'
+  lombokVersion = '1.18.42'
   gocdPluginApiVersion = '25.3.0'
   gsonVersion = '2.13.1'
 }
@@ -62,7 +62,7 @@ dependencies {
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
   testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
   testImplementation 'org.assertj:assertj-core:3.27.6'
-  testImplementation 'org.mockito:mockito-core:5.19.0'
+  testImplementation 'org.mockito:mockito-core:5.20.0'
   testImplementation "cd.go.plugin:go-plugin-api:$gocdPluginApiVersion"
   testImplementation 'org.skyscreamer:jsonassert:1.5.3'
 }
