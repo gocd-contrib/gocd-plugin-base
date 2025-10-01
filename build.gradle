@@ -41,7 +41,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 ext {
-  lombokVersion = '1.18.38'
+  lombokVersion = '1.18.42'
   gocdPluginApiVersion = '25.3.0'
   gsonVersion = '2.13.1'
 }
