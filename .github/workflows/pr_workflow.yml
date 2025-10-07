@@ -1,5 +1,3 @@
-# This workflow will build a Java project with Gradle
-
 name: Testing For PRs
 
 on: [ pull_request ]
