@@ -154,7 +154,7 @@ publishing {
 
 signing {
   required {
-    System.getenv('GOCD_GPG_KEY_ID')?.isNotEmpty()
+    System.getenv('GOCD_GPG_KEY_ID') != null
   }
   sign publishing.publications.mavenJava
 }
