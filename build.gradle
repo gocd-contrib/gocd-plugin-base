@@ -16,6 +16,7 @@
 
 plugins {
   id 'java-library'
+  id 'java-test-fixtures'
   id 'maven-publish'
   id 'signing'
   id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
@@ -23,8 +24,8 @@ plugins {
 
 apply from: "https://raw.githubusercontent.com/gocd/gocd-plugin-gradle-task-helpers/master/test-task-helper.gradle?_=${(int) (new Date().toInstant().epochSecond / 60)}"
 
-group = "cd.go.plugin.base"
-version = '1.1.1'
+group = 'cd.go.plugin.base'
+version = '2.0.0'
 description = 'Helper utility to write gocd plugins'
 
 repositories {
@@ -47,16 +48,19 @@ ext {
 }
 
 dependencies {
-  api "com.google.code.gson:gson:$gsonVersion"
+  api("com.google.code.gson:gson:$gsonVersion") {
+    exclude module: 'error_prone_annotations'
+  }
 
   compileOnly "org.projectlombok:lombok:$lombokVersion"
   annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
   compileOnly "cd.go.plugin:go-plugin-api:$gocdPluginApiVersion"
 
-  implementation platform('org.junit:junit-bom:6.0.2')
-  compileOnly 'org.junit.jupiter:junit-jupiter-api'
-  compileOnly 'org.junit.jupiter:junit-jupiter-params'
+  testFixturesApi platform('org.junit:junit-bom:6.0.3')
+  testFixturesApi 'org.junit.jupiter:junit-jupiter-api'
+  testFixturesApi 'org.junit.jupiter:junit-jupiter-params'
+
   testImplementation 'org.junit.jupiter:junit-jupiter-api'
   testImplementation 'org.junit.jupiter:junit-jupiter-params'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
@@ -98,7 +102,7 @@ artifacts {
 
 publishing {
   publications {
-    mavenJava(MavenPublication) {
+    register('mavenJava', MavenPublication) {
       from components.java
       artifact sourcesJar
       artifact javadocJar
@@ -111,7 +115,8 @@ publishing {
 
         licenses {
           license {
-            name = 'Apache License, Version 2.0'
+            name = 'Apache-2.0'
+            comments = 'Apache License, Version 2.0'
             url = 'https://www.apache.org/licenses/LICENSE-2.0'
             distribution = 'repo'
           }
@@ -130,8 +135,8 @@ publishing {
         }
 
         organization {
-          name = 'Thoughtworks, Inc.'
-          url = 'https://www.thoughtworks.com'
+          name = 'GoCD Community'
+          url = 'https://github.com/gocd-contrib'
         }
 
         issueManagement {
@@ -144,6 +149,9 @@ publishing {
 }
 
 signing {
+  required {
+    System.getenv('GOCD_GPG_KEY_ID')?.isNotEmpty()
+  }
   sign publishing.publications.mavenJava
 }
 
