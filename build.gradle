@@ -104,6 +104,10 @@ publishing {
   publications {
     register('mavenJava', MavenPublication) {
       from components.java
+
+      suppressPomMetadataWarningsFor('testFixturesApiElements')
+      suppressPomMetadataWarningsFor('testFixturesRuntimeElements')
+
       artifact sourcesJar
       artifact javadocJar
 
