@@ -84,20 +84,18 @@ sourceSets {
   }
 }
 
-tasks.register('javadocJar', Jar) {
+def javadocJar = tasks.register('javadocJar', Jar) {
     archiveClassifier = 'javadoc'
     from javadoc
 }
 
-tasks.register('sourcesJar', Jar) {
+def sourcesJar = tasks.register('sourcesJar', Jar) {
     archiveClassifier = 'sources'
     from sourceSets.main.allSource
 }
 
-artifacts {
-  archives jar
-  archives javadocJar
-  archives sourcesJar
+tasks.named('assemble') {
+  dependsOn(javadocJar, sourcesJar)
 }
 
 publishing {
@@ -153,9 +151,7 @@ publishing {
 }
 
 signing {
-  required {
-    System.getenv('GOCD_GPG_KEY_ID') != null
-  }
+  required = System.getenv('GOCD_GPG_KEY_ID') != null
   sign publishing.publications.mavenJava
 }
 
